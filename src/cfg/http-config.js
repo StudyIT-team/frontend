@@ -10,6 +10,7 @@ const createAxios = () => {
         headers: {
         'Content-Type': 'application/json',
         },
+        baseURL: 'http://localhost:8000',
     };
 
     const axiosInstance = axios.create(defaultOptions);

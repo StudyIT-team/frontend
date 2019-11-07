@@ -58,6 +58,7 @@ class LoginScreen extends React.Component {
         this.setState({
             username: event.target.value
         })
+        
     }
 
     changePassword(event) {
@@ -74,7 +75,7 @@ class LoginScreen extends React.Component {
 
     async submitLogin(event) {
         event.preventDefault();
-        const isLoggedIn = await loginService.loginUser(this.props.username, this.props.password, this.props.isTeacher);
+        const isLoggedIn = await loginService.loginUser(this.state.username, this.state.password, this.state.isTeacher);
         if(isLoggedIn === false){
            this.setState({
                 isLoggedIn: isLoggedIn
@@ -148,7 +149,7 @@ class LoginScreen extends React.Component {
                             <Grid container>
                                 <Grid item xs>
 
-                                    We are glad to have you back
+                                    We are glad to have you back!
                             </Grid>
                             </Grid>
                         </form>
