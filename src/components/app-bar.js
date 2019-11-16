@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import {withStyles} from "@material-ui/styles";
+import Sidebar from './sidebar';
 
 const useStyles = theme => ({
     root: {
@@ -23,17 +24,20 @@ class NavBar extends React.Component{
     
     render(){
         const classes = this.props.classes;
-        return (<AppBar position="static">
-        <Toolbar style={{backgroundColor: "#750080"}}>
-          <IconButton edge="start" className={classes.menuButton}  aria-label="menu">
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            StudyIT
-          </Typography>
-          <Button color="inherit">Login</Button>
-        </Toolbar>
-      </AppBar>
+        return (
+        <AppBar position="static">
+          <Toolbar style={{backgroundColor: "#750080"}}>
+            <IconButton edge="start" 
+              className={classes.menuButton}  
+              aria-label="menu">
+              <Sidebar pageWrapId={"page-wrap"} outerContainerId={"App"}/>
+            </IconButton>
+            <Typography id="page-wrap" variant="h6" className={classes.title}>
+              StudyIT
+            </Typography>
+            <Button color="inherit">Login</Button>
+          </Toolbar>
+        </AppBar>
         );
     }
 }

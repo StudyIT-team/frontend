@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  z-index: 0;
 }
 
 .App-logo {
@@ -20,3 +21,72 @@
 .App-link {
   color: #09d3ac;
 }
+
+
+/* sidebar Menu */
+
+#menu{
+  position: flex;
+  margin-top: -4.5vh !important;
+  margin-left: -4.7vw !important;
+  width: 20vw !important;
+  height: 99.6vh !important;
+}
+
+#page-wrap {
+  text-align: center;
+  overflow: auto;
+  position: relative;
+}
+
+.bm-morph-shape {
+  fill: #373a47;
+}
+
+.bm-item {
+  display: inline-block;
+  text-decoration: none;
+  margin-bottom: 1vh;
+  color: #d1d1d1;
+  transition: color 0.2s;
+}
+
+.bm-item:hover {
+  color: white;
+}
+
+.bm-burger-button {
+  position: flex;
+  width: 0.03vw;
+  height: 0.003vh;
+  left: 0.5vw;
+  top: 0.5vw;
+}
+
+.bm-burger-bars {
+  background: #d9dcee;
+}
+
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+}
+
+.bm-cross {
+  background: #bdc3c7;
+}
+
+.bm-menu {
+  background: #750080;
+  padding: 3.2em 0 0 0;
+  font-size: 0.5vh 1vw;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.bm-overlay {
+  margin-top: -4.5vh !important;
+  margin-left: -4.7vw !important;
+  width: 20vw !important;
+  height: 99.6vh !important;
+}
+
