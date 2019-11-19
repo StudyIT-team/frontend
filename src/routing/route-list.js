@@ -8,5 +8,6 @@ export const routeList = [
     <Route exact path="/" component={App}/>,
     <Route exact path="/login" component={LoginScreen}/>,
     <Route exact path="/invalid" component={App}/>,
-    <PrivateRoute nextUrl="/success" component={App}/>
+    <PrivateRoute nextUrl="/success" component={App}/>,
+    <Route exact path="/mysubjects" component={App}/>
 ];

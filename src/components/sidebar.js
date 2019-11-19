@@ -13,9 +13,9 @@ export default class Sidebar extends Component {
           <HomeIcon/>
           Home
         </a>
-        <a className="menu-item" href="/">
+        <a className="menu-item" href="/mysubjects">
           <LocalLibraryIcon />
-          My Study
+          My Subjects
         </a>
       </Menu>
     );
