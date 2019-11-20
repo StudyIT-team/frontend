@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { ErrorSnackbar } from '../components/error-snackbar';
 import { Paper, Card } from '@material-ui/core';
@@ -105,7 +105,7 @@ class RegisterScreen extends React.Component {
         event.preventDefault();
         if (this.state.password != this.state.repeatedPassword) {
             alert("Passwords must match!"); 
-            // TODO: handle this properly with snackbar laster
+            // TODO: handle this with snackbar
         }
     }
 

@@ -7,11 +7,37 @@ class RegisterService{
 
     async registerUser(firstName, lastName, username, password, isTeacher) {
         const result = await this.axios.post('/register', {
-            firstName: firstName, 
-            lastName: lastName, 
-            username: username,
-            password: password,
-            isTeacher: isTeacher
+
+        })
+        .then(resp => {
+            return true;
+        })
+        .catch(error => {
+            return false;
+        })
+        console.log(result);
+        return result;
+    }
+
+    async getDepartments() {
+        const result = await this.axios.get('/departments', {
+
+        })
+        .then(resp => {
+            return true;
+        })
+        .catch(error => {
+            return false;
+        })
+        console.log(result);
+        return result;
+    }
+
+    async getGroups(department) {
+        const result = await this.axios.get('/groups', {
+            params: {
+                department: department
+            }
         })
         .then(resp => {
             return true;
