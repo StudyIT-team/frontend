@@ -14,6 +14,10 @@ import LaptopChromebookIcon from '@material-ui/icons/LaptopChromebook';
 import Grid from '@material-ui/core/Grid';
 import { withRouter } from 'react-router-dom';
 import registerService from '../services/register-service';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const useStyles = theme => ({
     '@global': {
@@ -51,6 +55,7 @@ class RegisterScreen extends React.Component {
             repeatedPassword: "",
             isTeacher: false,
             hasRegistered: false,
+            groupSelectedDisabled: true,
         }
     }
 
@@ -109,10 +114,14 @@ class RegisterScreen extends React.Component {
         this.props.history.push(login_path);
     }
 
+    selectedDepartment(event) {
+        this.setState( {groupSelectedDisabled: false} )
+    }
+
     render() {
         const classes = this.props.classes;
         return (
-            <div>
+            <div> 
                 <Container component="main" maxWidth="xs">
                     <CssBaseline />
                     <Paper style={{padding: '40px',  boxShadow: '2px 2px 5px 5px rgba(0, 0, 0, .5)' }}>
@@ -184,6 +193,33 @@ class RegisterScreen extends React.Component {
                                     autoFocus
                                     onChange = { this.changeRepeatedPassword.bind(this) }
                                 />
+                                <FormControl fullWidth className={classes.formControl}>
+                                     <InputLabel id="departmentLabel"> 
+                                        Department
+                                    </InputLabel>
+                                    <Select
+                                        labelId = "departmentLabel"
+                                        id = "departmentSelect" 
+                                        onChange = { this.selectedDepartment.bind(this)} >
+                                        <MenuItem value={10}>Computer Science in English</MenuItem>
+                                        <MenuItem value={20}>Computer Science in Romanian</MenuItem>
+                                        <MenuItem value={30}>Mathematics in German</MenuItem>
+                                    </Select>
+                                </FormControl>
+                                <FormControl fullWidth className={classes.formControl}>
+                                     <InputLabel id="groupLabel"> 
+                                        Group
+                                    </InputLabel>
+                                    <Select
+                                        disabled = {(this.state.groupSelectedDisabled)? "disabled" : ""}
+                                        labelId = "groupLabel"
+                                        id = "groupSelect"
+                                        ref = "groupSelect" >
+                                        <MenuItem value={10}>931</MenuItem>
+                                        <MenuItem value={20}>932</MenuItem>
+                                        <MenuItem value={30}>933</MenuItem>
+                                    </Select>
+                                </FormControl>
                                 <FormControlLabel 
                                     control = {<Checkbox value="remember" color="primary" />}
                                     label = "Teacher?"
