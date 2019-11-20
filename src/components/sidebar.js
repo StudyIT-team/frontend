@@ -13,7 +13,7 @@ export default class Sidebar extends Component {
           <HomeIcon/>
           Home
         </a>
-        <a className="menu-item" href="/mysubjects">
+        <a className="menu-item" href="/subjects">
           <LocalLibraryIcon />
           My Subjects
         </a>
