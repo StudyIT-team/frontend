@@ -1,52 +1,37 @@
 import React from 'react';
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn,
-} from 'material-ui/Table';
+import DataTable from 'react-data-table-component';
+import { Container } from '@material-ui/core';
+ 
+const data = [{ id: 1, name: 'Handle', year: '1982' }];
+const columns = [
+  {
+    name: 'Name',
+    selector: 'name',
+    sortable: true,
+  },
+  {
+    name: 'Year',
+    selector: 'year',
+    sortable: true,
+    right: true,
+  },
+];
 
-export default class TableNew extends React.Component{
+export default class TableNew extends React.Component {
   render(){
-    return(
-      <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHeaderColumn>ID</TableHeaderColumn>
-          <TableHeaderColumn>Name</TableHeaderColumn>
-          <TableHeaderColumn>Status</TableHeaderColumn>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        <TableRow>
-          <TableRowColumn>1</TableRowColumn>
-          <TableRowColumn>John Smith</TableRowColumn>
-          <TableRowColumn>Employed</TableRowColumn>
-        </TableRow>
-        <TableRow>
-          <TableRowColumn>2</TableRowColumn>
-          <TableRowColumn>Randal White</TableRowColumn>
-          <TableRowColumn>Unemployed</TableRowColumn>
-        </TableRow>
-        <TableRow>
-          <TableRowColumn>3</TableRowColumn>
-          <TableRowColumn>Stephanie Sanders</TableRowColumn>
-          <TableRowColumn>Employed</TableRowColumn>
-        </TableRow>
-        <TableRow>
-          <TableRowColumn>4</TableRowColumn>
-          <TableRowColumn>Steve Brown</TableRowColumn>
-          <TableRowColumn>Employed</TableRowColumn>
-        </TableRow>
-        <TableRow>
-          <TableRowColumn>5</TableRowColumn>
-          <TableRowColumn>Christopher Nolan</TableRowColumn>
-          <TableRowColumn>Unemployed</TableRowColumn>
-        </TableRow>
-      </TableBody>
-    </Table>
-    );
-  }
+
+  return (
+    <Container>
+      <h1>Input year:</h1>
+      <input type="text" name="year"></input>
+      <button type="submit">Filter</button>
+      
+      <DataTable
+        title="Subjects"
+        columns={columns}
+        data={data}
+      />
+    </Container>
+  );
+}
 }
