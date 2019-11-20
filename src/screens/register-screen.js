@@ -11,7 +11,8 @@ import Container from '@material-ui/core/Container';
 import { ErrorSnackbar } from '../components/error-snackbar';
 import { Paper, Card } from '@material-ui/core';
 import LaptopChromebookIcon from '@material-ui/icons/LaptopChromebook';
-import RegisterService from '../services/register-service';
+import Grid from '@material-ui/core/Grid';
+import { withRouter } from 'react-router-dom';
 import registerService from '../services/register-service';
 
 const useStyles = theme => ({
@@ -103,6 +104,11 @@ class RegisterScreen extends React.Component {
         }
     }
 
+    redirectToLogin(event) {
+        const login_path = '/login';
+        this.props.history.push(login_path);
+    }
+
     render() {
         const classes = this.props.classes;
         return (
@@ -190,6 +196,22 @@ class RegisterScreen extends React.Component {
                                     style = {{ backgroundColor: "#750080 "}}
                                     onClick = {this.submitRegister.bind(this)} > Sign Up
                                 </Button>
+                                <Grid container>
+                                    <Grid item xs>
+                                        Have an acocunt already?
+                                    </Grid>
+                                    <Grid item xs>
+                                        <Button
+                                            fullWidth
+                                            variant = "contained"
+                                            color = "primary"
+                                            style = {{ backgroundColor: "#750080 "}}
+                                            onClick = {this.redirectToLogin.bind(this)}
+                                        >
+                                            Log In
+                                        </Button>
+                                    </Grid>
+                                </Grid>
                             </form>
                         </div>
                     </Paper>
