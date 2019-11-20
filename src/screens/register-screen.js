@@ -11,7 +11,8 @@ import Container from '@material-ui/core/Container';
 import { ErrorSnackbar } from '../components/error-snackbar';
 import { Paper, Card } from '@material-ui/core';
 import LaptopChromebookIcon from '@material-ui/icons/LaptopChromebook';
-
+import RegisterService from '../services/register-service';
+import registerService from '../services/register-service';
 
 const useStyles = theme => ({
     '@global': {
@@ -88,14 +89,22 @@ class RegisterScreen extends React.Component {
         })
     }
 
+    restartRegister() {
+        this.setState({
+            hasRegistered : undefined
+        })
+    }
+
     async submitRegister(event) {
         event.preventDefault();
-        
+        if (this.state.password != this.state.repeatedPassword) {
+            alert("Passwords must match!"); 
+            // TODO: handle this properly with snackbar laster
+        }
     }
 
     render() {
         const classes = this.props.classes;
-        // error snackbar
         return (
             <div>
                 <Container component="main" maxWidth="xs">
@@ -119,7 +128,7 @@ class RegisterScreen extends React.Component {
                                     name = "firstName"
                                     autoComplete = "firstName"
                                     autoFocus
-                                    onChange
+                                    onChange = { this.changeFirstName.bind(this) }
                                 />
                                 <TextField
                                     variant = "outlined"
@@ -131,7 +140,7 @@ class RegisterScreen extends React.Component {
                                     name = "lastName"
                                     autoComplete = "lastName"
                                     autoFocus
-                                    onChange 
+                                    onChange = { this.changeLastName.bind(this) }
                                 />
                                 <TextField 
                                     variant = "outlined"
@@ -143,7 +152,7 @@ class RegisterScreen extends React.Component {
                                     name = "username"
                                     autoComplete = "username"
                                     autoFocus
-                                    onChange
+                                    onChange = { this.changeUsername.bind(this) }
                                 />
                                 <TextField 
                                     variant = "outlined"
@@ -155,7 +164,7 @@ class RegisterScreen extends React.Component {
                                     name = "password"
                                     type = "password"
                                     autoFocus
-                                    onChange
+                                    onChange = { this.changePassword.bind(this) }
                                 />
                                 <TextField 
                                     variant = "outlined"
@@ -167,29 +176,26 @@ class RegisterScreen extends React.Component {
                                     name = "repeatedPassword"
                                     type = "password"
                                     autoFocus
-                                    onChange
+                                    onChange = { this.changeRepeatedPassword.bind(this) }
                                 />
                                 <FormControlLabel 
                                     control = {<Checkbox value="remember" color="primary" />}
                                     label = "Teacher?"
                                 />
                                 <Button
-                                    type = "submit"
                                     fullWidth
                                     variant = "contained"
                                     color = "primary"
                                     className = {classes.submit}
                                     style = {{ backgroundColor: "#750080 "}}
-                                    // onClick = {this.submitRegister.bind(this)} > Sign Up
-                                    > Sign Up
+                                    onClick = {this.submitRegister.bind(this)} > Sign Up
                                 </Button>
                             </form>
                         </div>
                     </Paper>
                 </Container>
-                <TextField></TextField>
             </div>
-        )
+        );
     }
 }
 
