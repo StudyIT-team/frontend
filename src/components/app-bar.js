@@ -35,7 +35,6 @@ class NavBar extends React.Component{
             <Typography id="page-wrap" variant="h6" className={classes.title}>
               StudyIT
             </Typography>
-            <Button color="inherit">Login</Button>
           </Toolbar>
         </AppBar>
         );
