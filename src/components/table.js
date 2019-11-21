@@ -11,6 +11,7 @@ const data = [{ id: 1, name: 'Crypto', year: '2019', semester:'1'},
 
 var searchString = '';
 var searchString1 = '';
+var data1 = [{}];
 
 const columns = [
   {
@@ -41,14 +42,16 @@ export default class TableNew extends React.Component {
   };
 
   activeClick(){
+    console.log("this is"+ data1);
     if(searchString.length > 0){
       if (searchString1.length > 0){
-        data = data.filter(l => {
+        data1 = data.filter(l => {
           return l.year.toLowerCase().match( searchString ) && 
                  l.semester.toLocaleLowerCase().match( searchString1 );
       });
       }
     }
+    console.log("this is"+ data1);
   }
 
   render(){
@@ -71,12 +74,12 @@ export default class TableNew extends React.Component {
       <input type="text" name={searchString} style={{width:"5vw"}} onChange={this.handleChange} placeholder="Type here"></input>
       <p>Input semester:</p>
       <input type="text" name={searchString1} style={{width:"5vw"}} onChange={this.handleChange1} placeholder="Type here"></input>
-      <Button type="submit" onClick={this.activeClick()}>Filter</Button>
+      <Button onClick={this.activeClick}>Filter</Button>
       
       <DataTable
         title="Subjects"
         columns={columns}
-        data={data}
+        data={data1}
       />
     </Container>
   );
