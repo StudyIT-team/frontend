@@ -50,7 +50,7 @@ class RegisterScreen extends React.Component {
         this.state = {
             firstName: "",
             lastName: "",
-            username: "",
+            email: "",
             password: "",
             repeatedPassword: "",
             isTeacher: false,
@@ -71,9 +71,9 @@ class RegisterScreen extends React.Component {
         })
     }
 
-    changeUsername(event) {
+    changeEmail(event) {
         this.setState({
-            username: event.target.value
+            email: event.target.value
         })
     }
 
@@ -106,7 +106,15 @@ class RegisterScreen extends React.Component {
         if (this.state.password != this.state.repeatedPassword) {
             alert("Passwords must match!"); 
             // TODO: handle this with snackbar
+            return;
         }
+        var userRole = "";
+        if (this.state.isTeacher === true) {
+            userRole = "Teacher";
+        } else {
+            userRole = "Student";
+        }
+        this.registerService.registerUser(this.state.firstName, this.state.lastName, this.state.email, userRole, "1");
     }
 
     redirectToLogin(event) {
@@ -162,12 +170,12 @@ class RegisterScreen extends React.Component {
                                     margin  = "normal"
                                     required
                                     fullWidth
-                                    id = "username"
-                                    label = "Username"
-                                    name = "username"
-                                    autoComplete = "username"
+                                    id = "email"
+                                    label = "E-mail"
+                                    name = "email"
+                                    autoComplete = "email"
                                     autoFocus
-                                    onChange = { this.changeUsername.bind(this) }
+                                    onChange = { this.changeEmail.bind(this) }
                                 />
                                 <TextField 
                                     variant = "outlined"

@@ -5,9 +5,13 @@ class RegisterService{
         this.axios = getAxios();
     }
 
-    async registerUser(firstName, lastName, username, password, isTeacher) {
+    async registerUser(firstName, lastName, email, role, group) {
         const result = await this.axios.post('/register', {
-
+            email: email,
+            firstName: firstName,
+            lastName: lastName,
+            group: group,
+            role: role
         })
         .then(resp => {
             return true;
