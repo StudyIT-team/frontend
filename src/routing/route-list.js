@@ -5,6 +5,7 @@ import RegisterScreen from '../screens/register-screen';
 import PrivateRoute from './private-route';
 import React from 'react';
 import NewsScreen from '../screens/news-screen';
+import TimetableScreen from '../screens/timetable-screen';
 
 export const routeList = [
     <Route exact path="/" component={App}/>,
@@ -12,5 +13,6 @@ export const routeList = [
     <Route exact path="/register" component={RegisterScreen}/>,
     <Route exact path="/invalid" component={App}/>,
     <Route exact path="/news" component={NewsScreen}/>,
+    <PrivateRoute nextUrl="/timetable" component={TimetableScreen}/>,
     <PrivateRoute nextUrl="/success" component={App}/>
 ];

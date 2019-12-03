@@ -13,22 +13,23 @@ export default class PrivateRoute extends Component{
     }
 
     render(){
-        const user = getUser();
-        const comp = this.props.component;
-        const nextUrl = this.props.nextUrl;
-        if(!user){
-            return <Redirect to="/invalid"/>;
-        }
-        if(this.props.forStudent === undefined){
-            return <Route exact path={nextUrl}  component={comp}/>
-        }
-        if(this.props.forStudent && user.role == "student"){
-            return <Route exact path={nextUrl} component={comp}/>;
-        }
-        if(!this.props.forStudent && user.role == "prof"){
-            return <Route exact path={nextUrl} component={comp}/>;
-        }
-        return <Redirect to="/invalid"/>;
+        // const user = getUser();
+        // const comp = this.props.component;
+        // const nextUrl = this.props.nextUrl;
+        // if(!user){
+        //     return <Redirect to="/invalid"/>;
+        // }
+        // if(this.props.forStudent === undefined){
+        //     return <Route exact path={nextUrl}  component={comp}/>
+        // }
+        // if(this.props.forStudent && user.role == "student"){
+        //     return <Route exact path={nextUrl} component={comp}/>;
+        // }
+        // if(!this.props.forStudent && user.role == "prof"){
+        //     return <Route exact path={nextUrl} component={comp}/>;
+        // }
+        // return <Redirect to="/invalid"/>;
+        return <Route exact path={this.props.nextUrl} component={this.props.component}/>
     }
 
 

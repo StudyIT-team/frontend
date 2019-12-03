@@ -18,6 +18,10 @@
   color: white;
 }
 
+.event_main{
+  background-color: blueviolet;
+}
+
 .App-link {
   color: #09d3ac;
 }
@@ -26,10 +30,10 @@
 /* sidebar Menu */
 
 #menu{
-  position: flex;
   margin-top: -4.5vh !important;
   margin-left: -4.7vw !important;
   width: 20vw !important;
+  z-index: 10;
   height: 99.6vh !important;
 }
 
