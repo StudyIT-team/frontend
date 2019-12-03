@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-const categories = ['World', 'Business', 'Tech', 'Sport'];
+const categories = ['General','Analiza'];
 export default class NewsForm extends React.Component {
     constructor(props) {
       super(props);
