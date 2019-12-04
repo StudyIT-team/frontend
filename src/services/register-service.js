@@ -24,17 +24,11 @@ class RegisterService{
     }
 
     async getDepartments() {
-        const result = await this.axios.get('/departments', {
-
-        })
-        .then(resp => {
-            return true;
-        })
-        .catch(error => {
-            return false;
-        })
-        console.log(result);
-        return result;
+        try {
+            return await this.axios.get('http://3.124.8.117/studyit/api/v1/departments')
+          } catch (error) {
+            console.error(error)
+        }
     }
 
     async getGroups(department) {

@@ -53,10 +53,39 @@ class RegisterScreen extends React.Component {
             email: "",
             password: "",
             repeatedPassword: "",
+            departments: {},
             isTeacher: false,
             hasRegistered: false,
             groupSelectedDisabled: true,
         }
+    }
+
+    async componentDidMount() {
+        const departments = await registerService.getDepartments();
+        this.setState({ departments: departments.data });
+        this.createDepartmentsSelectItems();
+    }
+
+    createDepartmentsSelectItems() {
+        let items_deps = [];
+        let items = [];
+        for( let i = 0; i < this.state.departments.length; i++) {
+            let item = this.state.departments[i];
+            let depName = item.name;
+            let exists = false;
+            for (let j = 0; j < items_deps.length; j++) {
+                if (depName == items_deps[j])
+                    exists = true;
+            }
+            if (exists == false) {
+                items_deps.push(depName);
+            }
+        }
+        items_deps.sort();
+        for (let k = 0; k < items_deps.length; k++) {
+            items.push(<MenuItem value = {k}>{items_deps[k]}</MenuItem>);
+        }
+        return items;
     }
 
     changeFirstName(event) {
@@ -209,9 +238,20 @@ class RegisterScreen extends React.Component {
                                         labelId = "departmentLabel"
                                         id = "departmentSelect" 
                                         onChange = { this.selectedDepartment.bind(this)} >
-                                        <MenuItem value={10}>Computer Science in English</MenuItem>
-                                        <MenuItem value={20}>Computer Science in Romanian</MenuItem>
-                                        <MenuItem value={30}>Mathematics in German</MenuItem>
+                                        {this.createDepartmentsSelectItems()}
+                                    </Select>
+                                </FormControl>
+                                <FormControl fullWidth className={classes.formControl}>
+                                    <InputLabel id="yearLabel">
+                                        Study Year
+                                    </InputLabel>
+                                    <Select
+                                        disabled = {(this.state.groupSelectedDisabled? "disabled": "")}
+                                        labelId = "yearLabel"
+                                        id = "yearSelect" >
+                                        <MenuItem value={1}>1</MenuItem>
+                                        <MenuItem value={2}>2</MenuItem>
+                                        <MenuItem value={3}>3</MenuItem>
                                     </Select>
                                 </FormControl>
                                 <FormControl fullWidth className={classes.formControl}>
