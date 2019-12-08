@@ -15,19 +15,21 @@ export default class NewsForm extends React.Component {
       this.content.value = '';
       event.preventDefault();
     }
-  
     render() {
       return (
         <div className="post-form">
           <form onSubmit={this.handleSubmit}>
             <label>
               Category:
+            </label>
+            <label>
               <select ref={(input) => this.category = input}>
                 {categories.map((category, index) =>
                   <option key={category} value={category}>{category}</option>
                 )}
               </select>
             </label>
+            <br></br>
             <label>
               Content:
               <input type="text" ref={(input) => this.content = input} />
