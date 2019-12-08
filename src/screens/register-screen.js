@@ -48,10 +48,12 @@ class RegisterScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            isTeacher: false,
             firstName: "",
             lastName: "",
             email: "",
             password: "",
+            group: "",
             repeatedPassword: "",
             departments: {},
             groups: {},
@@ -118,6 +120,12 @@ class RegisterScreen extends React.Component {
         return items;
     }
 
+    changeIsTeacher(event) {
+        this.setState({
+            isTeacher: event.target.value
+        });
+    }
+
     changeFirstName(event) {
         this.setState({
             firstName: event.target.value
@@ -148,12 +156,28 @@ class RegisterScreen extends React.Component {
         })
     }
 
+    changeGroup(event) {
+        this.setState({
+            group: event.target.value
+        })
+    }
+
     async submitRegister(event) {
         event.preventDefault();
         if (this.state.password != this.state.repeatedPassword) {
             alert("Passwords must match!"); 
-            // TODO: handle this with snackbar
             return;
+        } else {
+            if (!this.state.isTeacher) {
+                const email = this.state.email;
+                const firstName = this.state.firstName;
+                const group = this.state.group;
+                const lastName = this.state.lastName;
+                const password = this.state.password;
+
+                const result = await registerService.registerStudent(firstName, lastName, email, password, group);
+                console.log(result);
+            }
         }
     }
 
@@ -196,6 +220,10 @@ class RegisterScreen extends React.Component {
                                 Create Account
                             </Typography>
                             <form className={classes.form} noValidate>
+                                <FormControlLabel
+                                    control = {<Checkbox value="role" color="primary" onChange={this.changeIsTeacher.bind(this)} />}
+                                    label = "Teacher?"
+                                />
                                 <TextField 
                                     variant = "outlined"
                                     margin  = "normal"
@@ -285,6 +313,7 @@ class RegisterScreen extends React.Component {
                                     </InputLabel>
                                     <Select
                                         disabled = {(this.state.groupSelectionDisabled)? "disabled" : ""}
+                                        onChange = {this.changeGroup.bind(this)}
                                         labelId = "groupLabel"
                                         id = "groupSelect"
                                         ref = "groupSelect" >
@@ -309,8 +338,7 @@ class RegisterScreen extends React.Component {
                                             variant = "contained"
                                             color = "primary"
                                             style = {{ backgroundColor: "#750080 "}}
-                                            onClick = {this.redirectToLogin.bind(this)}
-                                        >
+                                            onClick = {this.redirectToLogin.bind(this)} >
                                             Log In
                                         </Button>
                                     </Grid>

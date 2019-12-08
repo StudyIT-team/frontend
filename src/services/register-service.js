@@ -5,19 +5,19 @@ class RegisterService{
         this.axios = getAxios();
     }
 
-    async registerUser(firstName, lastName, email, role, group) {
-        const result = await this.axios.post('/register', {
+    async registerStudent(firstName, lastName, email, password, group) {
+        const result = await this.axios.post('http://3.124.8.117/studyit/api/v1/students', {
             email: email,
             firstName: firstName,
-            lastName: lastName,
             group: group,
-            role: role
+            lastName: lastName,
+            password: password,
         })
-        .then(resp => {
-            return true;
+        .then(response => {
+            console.log(response)
         })
         .catch(error => {
-            return false;
+            console.log(error)
         })
         console.log(result);
         return result;
