@@ -54,16 +54,38 @@ class RegisterScreen extends React.Component {
             password: "",
             repeatedPassword: "",
             departments: {},
-            isTeacher: false,
-            hasRegistered: false,
-            groupSelectedDisabled: true,
+            groups: {},
+            selectedDepartment: "",
+            selectedYear: "",
+            selectedDeptID: "",
+            yearSelectionDisabled: true,
+            groupSelectionDisabled: true
         }
     }
 
     async componentDidMount() {
         const departments = await registerService.getDepartments();
         this.setState({ departments: departments.data });
-        this.createDepartmentsSelectItems();
+    }
+
+    async componentDidUpdate() {
+        if (this.state.selectedYear !== "") {
+            const deptID = this.determineDepartmentID(this.state.selectedYear);
+            if (deptID !== this.state.selectedDeptID) {
+                const detereminedGroups = await registerService.getGroups(deptID);
+                this.setState({ groups: detereminedGroups.data, selectedDeptID: deptID});
+            }
+        }
+    }
+
+    createGroupsSelectItems() {
+        let items = [];
+        if (typeof this.state.groups !== "undefined") {
+            for ( let i = 0; i < this.state.groups.length; i++) {
+                items.push(<MenuItem value = {this.state.groups[i]}>{this.state.groups[i]}</MenuItem>);
+            }
+            return items;
+        }
     }
 
     createDepartmentsSelectItems() {
@@ -83,7 +105,15 @@ class RegisterScreen extends React.Component {
         }
         items_deps.sort();
         for (let k = 0; k < items_deps.length; k++) {
-            items.push(<MenuItem value = {k}>{items_deps[k]}</MenuItem>);
+            items.push(<MenuItem value = {items_deps[k]}>{items_deps[k]}</MenuItem>);
+        }
+        return items;
+    }
+
+    createYearsSelecItems() {
+        let items = [];
+        for (let year = 1; year <= 3; year++) {
+            items.push(<MenuItem value = {year.toLocaleString()}>{year.toLocaleString()}</MenuItem>)
         }
         return items;
     }
@@ -118,18 +148,6 @@ class RegisterScreen extends React.Component {
         })
     }
 
-    changeIsTeacher(event) {
-        this.setState({
-            isTeacher: event.target.value
-        })
-    }
-
-    restartRegister() {
-        this.setState({
-            hasRegistered : undefined
-        })
-    }
-
     async submitRegister(event) {
         event.preventDefault();
         if (this.state.password != this.state.repeatedPassword) {
@@ -137,13 +155,6 @@ class RegisterScreen extends React.Component {
             // TODO: handle this with snackbar
             return;
         }
-        var userRole = "";
-        if (this.state.isTeacher === true) {
-            userRole = "Teacher";
-        } else {
-            userRole = "Student";
-        }
-        this.registerService.registerUser(this.state.firstName, this.state.lastName, this.state.email, userRole, "1");
     }
 
     redirectToLogin(event) {
@@ -151,8 +162,23 @@ class RegisterScreen extends React.Component {
         this.props.history.push(login_path);
     }
 
-    selectedDepartment(event) {
-        this.setState( {groupSelectedDisabled: false} )
+    selectionDepartment(event) {
+        this.setState( {yearSelectionDisabled: false, selectedDepartment: event.target.value } );
+    }
+
+    selectionYear(event) {
+        const selectedYear = event.target.value;
+        this.setState( {groupSelectionDisabled: false, selectedYear: selectedYear} );
+    }
+
+    determineDepartmentID(selectedYear) {
+        let selectedDept = this.state.selectedDepartment;
+        for( let i = 0; i < this.state.departments.length; i++) {
+            let dept = this.state.departments[i].name;
+            let year = this.state.departments[i].year;
+            if (year == selectedYear && selectedDept == dept) {
+                return this.state.departments[i].id.toLocaleString()};
+        }
     }
 
     render() {
@@ -237,7 +263,7 @@ class RegisterScreen extends React.Component {
                                     <Select
                                         labelId = "departmentLabel"
                                         id = "departmentSelect" 
-                                        onChange = { this.selectedDepartment.bind(this)} >
+                                        onChange = { this.selectionDepartment.bind(this) } >
                                         {this.createDepartmentsSelectItems()}
                                     </Select>
                                 </FormControl>
@@ -246,12 +272,11 @@ class RegisterScreen extends React.Component {
                                         Study Year
                                     </InputLabel>
                                     <Select
-                                        disabled = {(this.state.groupSelectedDisabled? "disabled": "")}
+                                        disabled = {(this.state.yearSelectionDisabled)? "disabled": ""}
+                                        onChange = { this.selectionYear.bind(this) }
                                         labelId = "yearLabel"
                                         id = "yearSelect" >
-                                        <MenuItem value={1}>1</MenuItem>
-                                        <MenuItem value={2}>2</MenuItem>
-                                        <MenuItem value={3}>3</MenuItem>
+                                        {this.createYearsSelecItems()}
                                     </Select>
                                 </FormControl>
                                 <FormControl fullWidth className={classes.formControl}>
@@ -259,19 +284,13 @@ class RegisterScreen extends React.Component {
                                         Group
                                     </InputLabel>
                                     <Select
-                                        disabled = {(this.state.groupSelectedDisabled)? "disabled" : ""}
+                                        disabled = {(this.state.groupSelectionDisabled)? "disabled" : ""}
                                         labelId = "groupLabel"
                                         id = "groupSelect"
                                         ref = "groupSelect" >
-                                        <MenuItem value={10}>931</MenuItem>
-                                        <MenuItem value={20}>932</MenuItem>
-                                        <MenuItem value={30}>933</MenuItem>
+                                        {this.createGroupsSelectItems()}
                                     </Select>
                                 </FormControl>
-                                <FormControlLabel 
-                                    control = {<Checkbox value="remember" color="primary" />}
-                                    label = "Teacher?"
-                                />
                                 <Button
                                     fullWidth
                                     variant = "contained"
