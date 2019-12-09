@@ -9,10 +9,6 @@ const data = [{ id: 1, name: 'Crypto', year: '2019', semester:'1'},
             { id: 4, name: 'LFTC', year: '2019', semester:'1' },
             { id: 5, name: 'Mobile', year: '2019', semester:'1' }];
 
-var searchString = '';
-var searchString1 = '';
-var data1 = [{}];
-
 const columns = [
   {
     name: 'Name',
@@ -33,53 +29,50 @@ const columns = [
 ];
 
 export default class TableNew extends React.Component {
-  handleChange(e) {
-    searchString = e.target.value;
+  constructor(props) {
+    super(props);
+    this.state = {
+      tablelist: [{}],
+      searchString:'',
+      searchString1:''
+  }};
+
+  handleChange=(e) => {
+    this.state.searchString = e.target.value;
   };
 
-  handleChange1(e) {
-    searchString1 = e.target.value;
+  handleChange1=(e) => {
+    this.state.searchString1 = e.target.value;
   };
 
-  activeClick(){
+  activeClick=() =>{
+    const data1 = [{}];
     console.log("this is"+ data1);
-    if(searchString.length > 0){
-      if (searchString1.length > 0){
-        data1 = data.filter(l => {
-          return l.year.toLowerCase().match( searchString ) && 
-                 l.semester.toLocaleLowerCase().match( searchString1 );
-      });
+    if(this.state.searchString.length > 0 && this.state.searchString1.length > 0){
+      for (var i = 0;i < data.length;i++){
+        if (data[i].semester == this.state.searchString1 && data[i].year == this.state.searchString){
+          data1.push(data[i]);
+        }
       }
-    }
-    console.log("this is"+ data1);
+      }
+      console.log(data1);
+      this.setState((state) => ({ tablelist: [...data1] }));
   }
 
   render(){
 
-    searchString = searchString.trim().toLowerCase();
-    searchString1 = searchString1.trim().toLowerCase();
-
-
-    if(searchString.length > 0){
-      if (searchString1.length > 0){
-        data = data.filter(l => {
-          return l.year.toLowerCase().match( searchString );
-      });
-      }
-    }
-
   return (
     <Container style={{width:"30vw"}}>
       <p>Input year:</p>
-      <input type="text" name={searchString} style={{width:"5vw"}} onChange={this.handleChange} placeholder="Type here"></input>
+      <input type="text" name='year' style={{width:"5vw"}} onChange={this.handleChange} placeholder="Type here"></input>
       <p>Input semester:</p>
-      <input type="text" name={searchString1} style={{width:"5vw"}} onChange={this.handleChange1} placeholder="Type here"></input>
+      <input type="text" name='semester' style={{width:"5vw"}} onChange={this.handleChange1} placeholder="Type here"></input>
       <Button onClick={this.activeClick}>Filter</Button>
       
       <DataTable
         title="Subjects"
         columns={columns}
-        data={data1}
+        data={this.state.tablelist}
       />
     </Container>
   );
