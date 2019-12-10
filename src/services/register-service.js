@@ -5,52 +5,38 @@ class RegisterService{
         this.axios = getAxios();
     }
 
-    async registerUser(firstName, lastName, email, role, group) {
-        const result = await this.axios.post('/register', {
+    async registerStudent(firstName, lastName, email, password, group) {
+        const result = await this.axios.post('http://3.124.8.117/studyit/api/v1/students', {
             email: email,
             firstName: firstName,
-            lastName: lastName,
             group: group,
-            role: role
+            lastName: lastName,
+            password: password,
         })
-        .then(resp => {
-            return true;
+        .then(response => {
+            console.log(response)
         })
         .catch(error => {
-            return false;
+            console.log(error)
         })
         console.log(result);
         return result;
     }
 
     async getDepartments() {
-        const result = await this.axios.get('/departments', {
-
-        })
-        .then(resp => {
-            return true;
-        })
-        .catch(error => {
-            return false;
-        })
-        console.log(result);
-        return result;
+        try {
+            return await this.axios.get('http://3.124.8.117/studyit/api/v1/departments');
+          } catch (error) {
+            console.error(error);
+        }
     }
 
     async getGroups(department) {
-        const result = await this.axios.get('/groups', {
-            params: {
-                department: department
-            }
-        })
-        .then(resp => {
-            return true;
-        })
-        .catch(error => {
-            return false;
-        })
-        console.log(result);
-        return result;
+        try {
+            return await this.axios.get('http://3.124.8.117/studyit/api/v1/departments/' + department + '/groups');
+        } catch (error) {
+            console.error(error);
+        }
     }
 }
 
