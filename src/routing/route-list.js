@@ -14,8 +14,8 @@ export const routeList = [
     <Route exact path="/login" component={LoginScreen}/>,
     <Route exact path="/register" component={RegisterScreen}/>,
     <Route exact path="/invalid" component={App}/>,
-    <Route exact path="/subjects" component={SubjectsScreen}/>,
     <Route exact path="/news" component={NewsScreen}/>,
+    <Route exact path="/subjects" component={SubjectsScreen}/>,
     <PrivateRoute nextUrl="/timetable" component={TimetableScreen}/>,
     <PrivateRoute nextUrl="/success" component={App}/>
 ];

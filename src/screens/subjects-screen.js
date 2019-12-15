@@ -12,15 +12,10 @@ const columns = [
     sortable: true,
   },
   {
-    name: 'Year',
-    selector: 'year',
+    name: 'Description',
+    selector: 'description',
     sortable: true,
     right: true,
-  },
-  {
-    name: 'Semester',
-    selector: 'semester',
-    sortable: true,
   },
 ];
 
@@ -38,32 +33,21 @@ class SubjectsScreen extends React.Component {
       super(props);
       this.state = {
           subjects: {},
-          searchString1:''
       }
     }
 
-    // async componentDidMount() {
-    //   const subjects = await subjectsService.getSubjects();
-    //   this.setState({ subjects: subjects.data });
-    // }
+    async componentDidMount() {
+      const subjects = await SubjectsService.getSubjects();
+      this.setState({ subjects: subjects.data });
+    }
 
     handleChange1=(e) => {
       this.state.searchString1 = e.target.value;
     }
 
-    async activeClick(semester){
-      const subjects = await SubjectsService.getSubjects(semester);
-      this.setState({ subjects: subjects.data });
-    }
-
     render(){
       return (
         <Container style={{width:"30vw"}}>
-      {/* <p>Input year:</p>
-      <input type="text" name='year' style={{width:"5vw"}} onChange={this.handleChange} placeholder="Type here"></input> */}
-      <p>Input semester:</p>
-      <input type="text" name='semester' style={{width:"5vw"}} onChange={this.handleChange1} placeholder="Type here"></input>
-      <Button onClick={this.activeClick}>Filter</Button>
       
       <DataTable
         title="Subjects"
