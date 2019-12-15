@@ -9,8 +9,10 @@ const createAxios = () => {
     const defaultOptions = {
         headers: {
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin' : '*',
+        'Access-Control-Allow-Credentials': true
         },
-        baseURL: 'http://localhost:8000',
+        baseURL: 'http://3.124.8.117/studyit/api/v1/',
     };
 
     const axiosInstance = axios.create(defaultOptions);

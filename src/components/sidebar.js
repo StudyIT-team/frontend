@@ -17,6 +17,10 @@ export default class Sidebar extends Component {
           <LocalLibraryIcon />
           My Subjects
         </a>
+        <a className="menu-item" href="/news">
+          <LocalLibraryIcon />
+          News
+        </a>
       </Menu>
     );
   };
