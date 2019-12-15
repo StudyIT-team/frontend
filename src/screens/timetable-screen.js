@@ -1,7 +1,6 @@
 
 import React from 'react';
 import TimetableComponent from '../components/time-table';
-// import moment from 'moment';
 import { Container } from '@material-ui/core';
 import { timetableService } from '../services/timetable-service';
 import moment from "moment";

@@ -13,7 +13,6 @@ import { Paper, Card } from '@material-ui/core';
 import LaptopChromebookIcon from '@material-ui/icons/LaptopChromebook';
 import Grid from '@material-ui/core/Grid';
 import { withRouter } from 'react-router-dom';
-import registerService from '../services/register-service';
 import newsService from '../services/news-service';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
@@ -31,7 +30,6 @@ const useStyles = theme => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        width:'80vh',
     },
     avatar: {
         margin: theme.spacing(1),
@@ -50,41 +48,82 @@ class TeacherNewsScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            title:"",
-            content:"",
-            
+            content: "",
+            title: "",
+            datetime: "",
+            selectedSubject: "",
+            subjectSelectionDisabled: true,
         }
     }
-    changeTitle(event){
-        this.setState({
-            title:event.target.title
-        })
-    }
-    changeContent(event){
-        this.setState({
-            content:event.target.content
-        })
-    }
-   
-    // async submitNews(event) {
-    //     // event.preventDefault();
-    //     this.newsService.createNews(this.state.title,this.state.content);
-    // }
 
-    selectedSubject(event) {
-        this.setState( {groupSelectedDisabled: false} )
+    async componentDidMount() {
+        const subjects = await newsService.getSubjects();
+        console.log(subjects)
+        this.setState({ subjects: subjects.data });
+    }
+
+    createSubjectSelectItems() {
+        let items = [];
+        if (typeof this.state.subjects !== "undefined") {
+            for ( let i = 0; i < this.state.subjects.length; i++) {
+                items.push(<MenuItem value = {this.state.subjects[i]}>{this.state.subjects[i]}</MenuItem>);
+            }
+            return items;
+        }
+    }
+
+    changeTitle(event) {
+        this.setState({
+            title: event.target.value
+        })
+    }
+
+    changeContent(event) {
+        this.setState({
+            content: event.target.value
+        })
+    }
+
+    changeSubject(event) {
+        this.setState({
+            subject: event.target.value
+        })
+    }
+
+    async submitNews(event) {
+        event.preventDefault();
+        const title=this.state.title;
+        const content=this.state.content;
+        const subjectId=this.state.subjectId;
+        const result=await newsService.createNews(title,content,subjectId);
+        console.log(result);
+        console.log(title);
+        
+    }
+
+    selectionSubject(event) {
+        this.setState( {subjectSelectionDisabled: false, selectedSubject: event.target.value } );
+    }
+
+    determineSubjectID() {
+        let selectedSubject = this.state.selectedSubject;
+        for( let i = 0; i < this.state.subjects.length; i++) {
+            let subject = this.state.subjects[i].name;
+            if (selectedSubject == subject) {
+                return this.state.subjects[i].id.toLocaleString()};
+        }
     }
 
     render() {
         const classes = this.props.classes;
         return (
             <div> 
-                <Container component="main" maxWidth="xs">
+                <Container >
                     <CssBaseline />
                     <Paper style={{padding: '40px',  boxShadow: '2px 2px 5px 5px rgba(0, 0, 0, .5)' }}>
                         <div className={classes.paper}>
                             <Typography component="h1" variant="h5">
-                                Create a post
+                                Post something
                             </Typography>
                             <form className={classes.form} noValidate>
                                 <TextField 
@@ -97,7 +136,7 @@ class TeacherNewsScreen extends React.Component {
                                     name = "title"
                                     autoComplete = "title"
                                     autoFocus
-                                    //onChange = { this.changeTitle.bind(this) }
+                                    onChange = { this.changeTitle.bind(this) }
                                 />
                                 <TextField
                                     variant = "outlined"
@@ -109,46 +148,33 @@ class TeacherNewsScreen extends React.Component {
                                     name = "content"
                                     autoComplete = "content"
                                     autoFocus
-                                    //onChange = { this.changeContent.bind(this) }
+                                    onChange = { this.changeContent.bind(this) }
                                 />
                                 
                                 <FormControl fullWidth className={classes.formControl}>
-                                     <InputLabel id="subjectLabe"> 
+                                     <InputLabel id="subjectLabel"> 
                                         Subject
                                     </InputLabel>
                                     <Select
                                         labelId = "subjectLabel"
-                                        id = "subjectSelect" >
-                                        {/* onChange = { this.selectedSubject.bind(this)} > */}
-                                        <MenuItem value={10}>General</MenuItem>
-                                        <MenuItem value={20}>Analiza</MenuItem>
-                                        <MenuItem value={30}>Programare Logica si Functionala</MenuItem>
+                                        id = "subjectSelect" 
+                                        onChange = { this.selectionSubject.bind(this)} >
+                                        {/* {this.createSubjectSelectItems()} */}
+                                        <MenuItem value={10}>Computer Science in English</MenuItem>
+                                        <MenuItem value={20}>Computer Science in Romanian</MenuItem>
+                                        <MenuItem value={30}>Mathematics in German</MenuItem>
                                     </Select>
                                 </FormControl>
+                                
                                 <Button
                                     fullWidth
                                     variant = "contained"
                                     color = "primary"
                                     className = {classes.submit}
-                                    style = {{ backgroundColor: "#750080 "}}>Submit
-                                    {/* // onClick = {this.submitNews.bind(this)} > Submit */}
+                                    style = {{ backgroundColor: "#750080 "}}
+                                    onClick = {this.submitNews.bind(this)} > Post
                                 </Button>
-                                {/* <Grid container>
-                                    <Grid item xs>
-                                        Have an acocunt already?
-                                    </Grid>
-                                    <Grid item xs>
-                                        <Button
-                                            fullWidth
-                                            variant = "contained"
-                                            color = "primary"
-                                            style = {{ backgroundColor: "#750080 "}}
-                                            onClick = {this.redirectToLogin.bind(this)}
-                                        >
-                                            Log In
-                                        </Button>
-                                    </Grid>
-                                </Grid> */}
+                                
                             </form>
                         </div>
                     </Paper>
