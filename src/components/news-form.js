@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-const categories = ['General','Analiza'];
+const categories = ['General','Graph Algorithms','Parallel and Distributed Programming'];
 export default class NewsForm extends React.Component {
     constructor(props) {
       super(props);
@@ -31,10 +31,14 @@ export default class NewsForm extends React.Component {
             </label>
             <br></br>
             <label>
+              Title:
+              <input type="text" ref={(input) => this.content = input} />
+            </label>
+            <label>
               Content:
               <input type="text" ref={(input) => this.content = input} />
             </label>
-            <button className="button">Submit</button>
+            <button className="button">Post</button>
           </form>
         </div>
       )
