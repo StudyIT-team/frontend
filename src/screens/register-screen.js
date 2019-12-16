@@ -48,15 +48,82 @@ class RegisterScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            isTeacher: false,
             firstName: "",
             lastName: "",
             email: "",
             password: "",
+            group: "",
             repeatedPassword: "",
-            isTeacher: false,
-            hasRegistered: false,
-            groupSelectedDisabled: true,
+            departments: {},
+            groups: {},
+            selectedDepartment: "",
+            selectedYear: "",
+            selectedDeptID: "",
+            yearSelectionDisabled: true,
+            groupSelectionDisabled: true
         }
+    }
+
+    async componentDidMount() {
+        const departments = await registerService.getDepartments();
+        this.setState({ departments: departments.data });
+    }
+
+    async componentDidUpdate() {
+        if (this.state.selectedYear !== "") {
+            const deptID = this.determineDepartmentID(this.state.selectedYear);
+            if (deptID !== this.state.selectedDeptID) {
+                const detereminedGroups = await registerService.getGroups(deptID);
+                this.setState({ groups: detereminedGroups.data, selectedDeptID: deptID});
+            }
+        }
+    }
+
+    createGroupsSelectItems() {
+        let items = [];
+        if (typeof this.state.groups !== "undefined") {
+            for ( let i = 0; i < this.state.groups.length; i++) {
+                items.push(<MenuItem value = {this.state.groups[i]}>{this.state.groups[i]}</MenuItem>);
+            }
+            return items;
+        }
+    }
+
+    createDepartmentsSelectItems() {
+        let items_deps = [];
+        let items = [];
+        for( let i = 0; i < this.state.departments.length; i++) {
+            let item = this.state.departments[i];
+            let depName = item.name;
+            let exists = false;
+            for (let j = 0; j < items_deps.length; j++) {
+                if (depName == items_deps[j])
+                    exists = true;
+            }
+            if (exists == false) {
+                items_deps.push(depName);
+            }
+        }
+        items_deps.sort();
+        for (let k = 0; k < items_deps.length; k++) {
+            items.push(<MenuItem value = {items_deps[k]}>{items_deps[k]}</MenuItem>);
+        }
+        return items;
+    }
+
+    createYearsSelecItems() {
+        let items = [];
+        for (let year = 1; year <= 3; year++) {
+            items.push(<MenuItem value = {year.toLocaleString()}>{year.toLocaleString()}</MenuItem>)
+        }
+        return items;
+    }
+
+    changeIsTeacher(event) {
+        this.setState({
+            isTeacher: event.target.value
+        });
     }
 
     changeFirstName(event) {
@@ -89,15 +156,9 @@ class RegisterScreen extends React.Component {
         })
     }
 
-    changeIsTeacher(event) {
+    changeGroup(event) {
         this.setState({
-            isTeacher: event.target.value
-        })
-    }
-
-    restartRegister() {
-        this.setState({
-            hasRegistered : undefined
+            group: event.target.value
         })
     }
 
@@ -105,16 +166,19 @@ class RegisterScreen extends React.Component {
         event.preventDefault();
         if (this.state.password != this.state.repeatedPassword) {
             alert("Passwords must match!"); 
-            // TODO: handle this with snackbar
             return;
-        }
-        var userRole = "";
-        if (this.state.isTeacher === true) {
-            userRole = "Teacher";
         } else {
-            userRole = "Student";
+            if (!this.state.isTeacher) {
+                const email = this.state.email;
+                const firstName = this.state.firstName;
+                const group = this.state.group;
+                const lastName = this.state.lastName;
+                const password = this.state.password;
+
+                const result = await registerService.registerStudent(firstName, lastName, email, password, group);
+                console.log(result);
+            }
         }
-        this.registerService.registerUser(this.state.firstName, this.state.lastName, this.state.email, userRole, "1");
     }
 
     redirectToLogin(event) {
@@ -122,8 +186,23 @@ class RegisterScreen extends React.Component {
         this.props.history.push(login_path);
     }
 
-    selectedDepartment(event) {
-        this.setState( {groupSelectedDisabled: false} )
+    selectionDepartment(event) {
+        this.setState( {yearSelectionDisabled: false, selectedDepartment: event.target.value } );
+    }
+
+    selectionYear(event) {
+        const selectedYear = event.target.value;
+        this.setState( {groupSelectionDisabled: false, selectedYear: selectedYear} );
+    }
+
+    determineDepartmentID(selectedYear) {
+        let selectedDept = this.state.selectedDepartment;
+        for( let i = 0; i < this.state.departments.length; i++) {
+            let dept = this.state.departments[i].name;
+            let year = this.state.departments[i].year;
+            if (year == selectedYear && selectedDept == dept) {
+                return this.state.departments[i].id.toLocaleString()};
+        }
     }
 
     render() {
@@ -141,6 +220,10 @@ class RegisterScreen extends React.Component {
                                 Create Account
                             </Typography>
                             <form className={classes.form} noValidate>
+                                <FormControlLabel
+                                    control = {<Checkbox value="role" color="primary" onChange={this.changeIsTeacher.bind(this)} />}
+                                    label = "Teacher?"
+                                />
                                 <TextField 
                                     variant = "outlined"
                                     margin  = "normal"
@@ -208,10 +291,20 @@ class RegisterScreen extends React.Component {
                                     <Select
                                         labelId = "departmentLabel"
                                         id = "departmentSelect" 
-                                        onChange = { this.selectedDepartment.bind(this)} >
-                                        <MenuItem value={10}>Computer Science in English</MenuItem>
-                                        <MenuItem value={20}>Computer Science in Romanian</MenuItem>
-                                        <MenuItem value={30}>Mathematics in German</MenuItem>
+                                        onChange = { this.selectionDepartment.bind(this) } >
+                                        {this.createDepartmentsSelectItems()}
+                                    </Select>
+                                </FormControl>
+                                <FormControl fullWidth className={classes.formControl}>
+                                    <InputLabel id="yearLabel">
+                                        Study Year
+                                    </InputLabel>
+                                    <Select
+                                        disabled = {(this.state.yearSelectionDisabled)? "disabled": ""}
+                                        onChange = { this.selectionYear.bind(this) }
+                                        labelId = "yearLabel"
+                                        id = "yearSelect" >
+                                        {this.createYearsSelecItems()}
                                     </Select>
                                 </FormControl>
                                 <FormControl fullWidth className={classes.formControl}>
@@ -219,19 +312,14 @@ class RegisterScreen extends React.Component {
                                         Group
                                     </InputLabel>
                                     <Select
-                                        disabled = {(this.state.groupSelectedDisabled)? "disabled" : ""}
+                                        disabled = {(this.state.groupSelectionDisabled)? "disabled" : ""}
+                                        onChange = {this.changeGroup.bind(this)}
                                         labelId = "groupLabel"
                                         id = "groupSelect"
                                         ref = "groupSelect" >
-                                        <MenuItem value={10}>931</MenuItem>
-                                        <MenuItem value={20}>932</MenuItem>
-                                        <MenuItem value={30}>933</MenuItem>
+                                        {this.createGroupsSelectItems()}
                                     </Select>
                                 </FormControl>
-                                <FormControlLabel 
-                                    control = {<Checkbox value="remember" color="primary" />}
-                                    label = "Teacher?"
-                                />
                                 <Button
                                     fullWidth
                                     variant = "contained"
@@ -250,8 +338,7 @@ class RegisterScreen extends React.Component {
                                             variant = "contained"
                                             color = "primary"
                                             style = {{ backgroundColor: "#750080 "}}
-                                            onClick = {this.redirectToLogin.bind(this)}
-                                        >
+                                            onClick = {this.redirectToLogin.bind(this)} >
                                             Log In
                                         </Button>
                                     </Grid>
