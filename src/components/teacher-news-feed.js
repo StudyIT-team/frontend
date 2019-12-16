@@ -2,16 +2,15 @@ import React, {Component} from 'react';
 import NewsForm from '../components/news-form';
 import NewsPost from '../components/news-post';
 import SearchBar from '../components/search-bar';
-import TeacherNewsFeed from '../components/teacher-news-feed';
 
-export default class NewsFeed extends React.Component{
+export default class TeacherNewsFeed extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
           posts: [
-            // {title:'Plata pentru banchet',category: 'General', content: 'Se apropie primul deadline din contract ( din data de 22 noiembrie ) in care vom plati pretul aferent cursului festiv. Astfel ca trebuie toti pana in data scadenta sa achitam cei 230 lei ( 200 lei pentru info germana ) aferenti cursului festiv. ',datetime:'12.09.2019'},
+            {title:'Plata pentru banchet',category: 'General', content: 'Se apropie primul deadline din contract ( din data de 22 noiembrie ) in care vom plati pretul aferent cursului festiv. Astfel ca trebuie toti pana in data scadenta sa achitam cei 230 lei ( 200 lei pentru info germana ) aferenti cursului festiv. ',datetime:'12.09.2019'},
             {title:'Rezultate partial',category: 'Analiza', content: 'Rezultatele de la partial sunt afisate pe site-ul domnului profesor Nicolae Popovici',datetime:'13.11.2019'},
-            {title:'',category: 'MPP', content: 'This is my first post!',datetime:'12.16.2020'},
+            // {title:'',category: 'MPP', content: 'This is my first post!',datetime:'12.16.2020'},
           ],
           filteredPosts: []
         }
@@ -44,7 +43,9 @@ export default class NewsFeed extends React.Component{
         );
         return (
           <div className="feed">
-            <SearchBar onFilter={this.handleFilter}/>
+            <label class="label">Add a new post:</label>
+            <NewsForm onSubmit={this.handleNewPost} />
+            <label class="label">Other posts:</label>
             {filteredPosts.length > 0 ? filteredPosts : posts}
           </div>
         )
