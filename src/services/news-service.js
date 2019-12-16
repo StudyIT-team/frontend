@@ -14,6 +14,7 @@ class NewsService{
             
         })
         return result;
+
     }
     
     async getNews(){
@@ -35,4 +36,5 @@ class NewsService{
 
 const newsService = new NewsService()
 export default newsService; 
+
 

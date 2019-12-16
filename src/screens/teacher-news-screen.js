@@ -186,6 +186,7 @@
 
 // export default withStyles(useStyles)(TeacherNewsScreen);
 
+
 import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -201,6 +202,7 @@ import { Paper, Card } from '@material-ui/core';
 import LaptopChromebookIcon from '@material-ui/icons/LaptopChromebook';
 import Grid from '@material-ui/core/Grid';
 import { withRouter } from 'react-router-dom';
+import registerService from '../services/register-service';
 import newsService from '../services/news-service';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
@@ -215,15 +217,12 @@ class TeacherNewsScreen extends React.Component {
             <Container component="main" maxWidth="xs" >
                  <CssBaseline />
                     <TeacherNewsFeed/>
-                 {/* <Searchbar/>
-                 <NewsPost/>
-                 <br></br>
-                <NewsPost/>
-                <NewsPost/>
-                <NewsPost/> */}
+       
             </Container>
             
         );
     }
 }
 export default TeacherNewsScreen;
+
+

@@ -93,13 +93,13 @@
   height: 100vh !important;
   display: none;
 }
+/* News */
 
 .post {
   background: #FFFFFF;
   padding: 20px;
   margin: 10px 0 10px 0;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.10);
-  /* margin: 1em auto; */
   width: 650px;
 }
 .about{
@@ -121,11 +121,10 @@
   font-size: 17px;
 }
 .label {
-  padding: 14px;
   font-family: Arial;
   font-weight: bold;
   font-size:20px;
-  /* background-color: #e7e7e7;  */
+
   color: black;
 }
 .post-form {
@@ -151,8 +150,6 @@
   font-weight: normal;
   line-height: normal;
   margin:1 rem;
-  /* margin-left:65vh; */
-  /* position: relative; */
   text-decoration: none;
   text-align: center;
   -webkit-appearance: none;
@@ -166,6 +163,28 @@
   background-color: #008CBA;
   border-color: #007095;
   color: #FFFFFF;
+  
+}
+
+.button-subjects {
+  border-style: solid;
+  border-width: 0;
+  cursor: pointer;
+  font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+  font-weight: normal;
+  line-height: normal;
+  /* margin:1 rem; */
+  text-decoration: none;
+  text-align: center;
+  -webkit-appearance: none;
+  border-radius: 0;
+  /* display: inline-block; */
+  padding:0.5rem;
+  font-size: 1rem;
+  background-color: #008CBA;
+  border-color: #007095;
+  color: #FFFFFF;
+
   
 }
 input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], input[type="color"], textarea {
