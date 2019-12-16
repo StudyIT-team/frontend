@@ -8,9 +8,9 @@ export default class TeacherNewsFeed extends React.Component{
         super(props);
         this.state = {
           posts: [
-            {title:'Plata pentru banchet',category: 'General', content: 'Se apropie primul deadline din contract ( din data de 22 noiembrie ) in care vom plati pretul aferent cursului festiv. Astfel ca trebuie toti pana in data scadenta sa achitam cei 230 lei ( 200 lei pentru info germana ) aferenti cursului festiv. ',datetime:'12.09.2019'},
+            // {title:'Plata pentru banchet',category: 'General', content: 'Se apropie primul deadline din contract ( din data de 22 noiembrie ) in care vom plati pretul aferent cursului festiv. Astfel ca trebuie toti pana in data scadenta sa achitam cei 230 lei ( 200 lei pentru info germana ) aferenti cursului festiv. ',datetime:'12.09.2019'},
             {title:'Rezultate partial',category: 'Analiza', content: 'Rezultatele de la partial sunt afisate pe site-ul domnului profesor Nicolae Popovici',datetime:'13.11.2019'},
-            // {title:'',category: 'MPP', content: 'This is my first post!',datetime:'12.16.2020'},
+            {title:'',category: 'MPP', content: 'This is my first post!',datetime:'12.16.2020'},
           ],
           filteredPosts: []
         }
@@ -43,9 +43,8 @@ export default class TeacherNewsFeed extends React.Component{
         );
         return (
           <div className="feed">
-            <label class="label">Add a new post:</label>
+            {/* <SearchBar onFilter={this.handleFilter}/> */}
             <NewsForm onSubmit={this.handleNewPost} />
-            <label class="label">Other posts:</label>
             {filteredPosts.length > 0 ? filteredPosts : posts}
           </div>
         )

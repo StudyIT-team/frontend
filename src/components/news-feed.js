@@ -46,7 +46,7 @@ export default class NewsFeed extends React.Component{
           <div className="feed">
             <SearchBar onFilter={this.handleFilter}/>
             {filteredPosts.length > 0 ? filteredPosts : posts}
-            <NewsForm onSubmit={this.handleNewPost} />
+            {/* <NewsForm onSubmit={this.handleNewPost} /> */}
           </div>
         )
       }
