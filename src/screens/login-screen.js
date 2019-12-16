@@ -91,6 +91,11 @@ class LoginScreen extends React.Component {
         })
     }
 
+    redirectToRegister() {
+        const register_path = '/register';
+        this.props.history.push(register_path);
+    }
+
     render() {
         const classes = this.props.classes;
         const errorSnackBar = <ErrorSnackbar variant="error" message="Cannot log in. Try again!" onClose={this.restartLogin.bind(this)}/>;
@@ -104,7 +109,7 @@ class LoginScreen extends React.Component {
                             <LockOutlinedIcon />
                         </Avatar>
                         <Typography component="h1" variant="h5">
-                            Sign in
+                            Sign In
                     </Typography>
                         <form className={classes.form} noValidate>
                             <TextField
@@ -135,20 +140,33 @@ class LoginScreen extends React.Component {
                                 control={<Checkbox value="remember" color="primary" onChange={this.changeIsTeacher.bind(this)} />}
                                 label="Teacher?"
                             />
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                color="primary"
-                                className={classes.submit}
-                                style={{ backgroundColor: "#750080" }}
-                                onClick={this.submitLogin.bind(this)}
-                            >
-                                Sign In
-                        </Button>
                             <Grid container>
+                                <Grid container>
+                                    <Grid item xs>
+                                        Don't have an account yet?
+                                    </Grid>
+                                    <Grid item xs>
+                                        <Button
+                                            fullWidth
+                                            variant = "contained"
+                                            color = "primary"
+                                            style = {{ backgroundColor: "#750080 "}}
+                                            onClick = {this.redirectToRegister.bind(this)} >
+                                            Register
+                                        </Button>
+                                    </Grid>
+                                </Grid>
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    color="primary"
+                                    className={classes.submit}
+                                    style={{ backgroundColor: "#750080" }}
+                                    onClick={this.submitLogin.bind(this)}>
+                                        Sign In 
+                                </Button>
                                 <Grid item xs>
-
                                     We are glad to have you back!
                             </Grid>
                             </Grid>
