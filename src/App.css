@@ -34,12 +34,11 @@
   margin-left: -4.7vw !important;
   width: 20vw !important;
   z-index: 10;
-  height: 99.6vh !important;
+  height: 100vh !important;
 }
 
 #page-wrap {
   text-align: center;
-  overflow: auto;
   position: relative;
 }
 
@@ -91,8 +90,10 @@
   margin-top: -4.5vh !important;
   margin-left: -4.7vw !important;
   width: 20vw !important;
-  height: 99.6vh !important;
+  height: 100vh !important;
+  display: none;
 }
+
 .post {
   background: #FFFFFF;
   padding: 20px;
@@ -140,4 +141,9 @@
 .feed{
   margin: 1em auto;
   width: 650px;
+}
+
+.subject-form {
+  background: #90caf9 ;
+  padding: 20px;
 }

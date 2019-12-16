@@ -6,6 +6,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';
 
 export default class Sidebar extends Component {
+
   render(){
     return (
       <Menu id="menu">
@@ -13,9 +14,9 @@ export default class Sidebar extends Component {
           <HomeIcon/>
           Home
         </a>
-        <a className="menu-item" href="/">
+        <a className="menu-item" href="/subjects">
           <LocalLibraryIcon />
-          My Study
+          My Subjects
         </a>
         <a className="menu-item" href="/news">
           <LocalLibraryIcon />

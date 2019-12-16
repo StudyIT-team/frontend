@@ -29,7 +29,7 @@ class NavBar extends React.Component{
           <Toolbar style={{backgroundColor: "#750080"}}>
             <IconButton edge="start" 
               className={classes.menuButton}  
-              aria-label="menu">
+              aria-label="menu"> 
               <Sidebar pageWrapId={"page-wrap"} outerContainerId={"App"}/>
             </IconButton>
             <Typography id="page-wrap" variant="h6" className={classes.title}>
