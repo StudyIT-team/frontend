@@ -145,6 +145,10 @@ class Filter extends React.Component {
                                onKeyUp={this.handleKeyUp}
                                placeholder="Filter by category or content..." />
         </label>
+        <br></br>
+        <label style={{fontSize:"30px"}}>
+          Mandatory subjects:
+        </label>
       </div>
     )
   }
