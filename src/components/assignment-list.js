@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
-import NewsForm from '../components/news-form';
-import NewsPost from '../components/news-post';
-import SearchBar from '../components/search-bar';
-import TeacherNewsFeed from '../components/teacher-news-feed';
+import AddAssignment from '../components/add-assignment';
+import Assignment from '../components/assignment';
 
-export default class NewsFeed extends React.Component{
+
+
+export default class AssignmentList extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
           posts: [
-            {title: 'Assignment no 5', category:'Parallel and Distributed Programming',content:'The deadline for assignment 5 is postponed.'},
+            {title:'Assignment 1',content:'Given a sequence of n numbers, compute the sums of the first k numbers, for each k between 1 and n. Parallelize the computations, to optimize for low latency on a large number of processors. Use at most 2*n additions, but no more than 2*log(n) additions on each computation path from inputs to an output. Example: if the input sequence is 1 5 2 4, then the output should be 1 6 8 12.',deadline:'Week 9'},
           ],
           filteredPosts: []
         }
@@ -35,14 +35,16 @@ export default class NewsFeed extends React.Component{
     
       render() {
         const posts = this.state.posts.map((post, index) =>
-          <NewsPost key={index} value={post} />
+          <Assignment key={index} value={post} />
         );
         const filteredPosts = this.state.filteredPosts.map((post, index) =>
-          <NewsPost key={index} value={post} />
+          <Assignment key={index} value={post} />
         );
         return (
           <div className="feed">
-            <SearchBar onFilter={this.handleFilter}/>
+            <label class="label">Add a new assignment for the 'Parallel and distributed programming' course:</label>
+            <AddAssignment onSubmit={this.handleNewPost} />
+            <label class="label">Other assignments:</label>
             {filteredPosts.length > 0 ? filteredPosts : posts}
           </div>
         )

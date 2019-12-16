@@ -2,9 +2,8 @@ import React, {Component} from 'react';
 import NewsForm from '../components/news-form';
 import NewsPost from '../components/news-post';
 import SearchBar from '../components/search-bar';
-import TeacherNewsFeed from '../components/teacher-news-feed';
 
-export default class NewsFeed extends React.Component{
+export default class TeacherNewsFeed extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
@@ -42,7 +41,13 @@ export default class NewsFeed extends React.Component{
         );
         return (
           <div className="feed">
-            <SearchBar onFilter={this.handleFilter}/>
+            <NewsForm onSubmit={this.handleNewPost} />
+            <label>
+              Your posts:
+            </label>
+            <label class="label">Add a new post:</label>
+            <NewsForm onSubmit={this.handleNewPost} />
+            <label class="label">Other posts:</label>
             {filteredPosts.length > 0 ? filteredPosts : posts}
           </div>
         )
