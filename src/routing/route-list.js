@@ -7,6 +7,7 @@ import React from 'react';
 import NewsScreen from '../screens/news-screen';
 import TimetableScreen from '../screens/timetable-screen';
 import TeacherNewsScreen from '../screens/teacher-news-screen';
+import TeacherAssignmentsScreen from '../screens/teacher-assignments-screen';
 
 export const routeList = [
     <Route exact path="/" component={App}/>,
@@ -15,6 +16,7 @@ export const routeList = [
     <Route exact path="/invalid" component={App}/>,
     <Route exact path="/news" component={NewsScreen}/>,
     <Route exact path="/teacher-news" component={TeacherNewsScreen}/>,
+    <Route exact path="/teacher-assignment" component={TeacherAssignmentsScreen}/>,
     <PrivateRoute nextUrl="/timetable" component={TimetableScreen}/>,
     <PrivateRoute nextUrl="/success" component={App}/>
 ];
