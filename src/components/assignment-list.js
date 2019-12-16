@@ -9,9 +9,7 @@ export default class AssignmentList extends React.Component{
         super(props);
         this.state = {
           posts: [
-            // {title:'Plata pentru banchet',category: 'General', content: 'Se apropie primul deadline din contract ( din data de 22 noiembrie ) in care vom plati pretul aferent cursului festiv. Astfel ca trebuie toti pana in data scadenta sa achitam cei 230 lei ( 200 lei pentru info germana ) aferenti cursului festiv. ',datetime:'12.09.2019'},
-            {title:'Rezultate partial',category: 'Analiza', content: 'Rezultatele de la partial sunt afisate pe site-ul domnului profesor Nicolae Popovici',datetime:'13.11.2019'},
-            {title:'',category: 'MPP', content: 'This is my first post!',datetime:'12.16.2020'},
+            {title:'Assignment 1',content:'Given a sequence of n numbers, compute the sums of the first k numbers, for each k between 1 and n. Parallelize the computations, to optimize for low latency on a large number of processors. Use at most 2*n additions, but no more than 2*log(n) additions on each computation path from inputs to an output. Example: if the input sequence is 1 5 2 4, then the output should be 1 6 8 12.',deadline:'Week 9'},
           ],
           filteredPosts: []
         }
@@ -44,10 +42,10 @@ export default class AssignmentList extends React.Component{
         );
         return (
           <div className="feed">
-              <label class="label">Add a new post:</label>
+            <label class="label">Add a new assignment for the 'Parallel and distributed programming' course:</label>
             <AddAssignment onSubmit={this.handleNewPost} />
+            <label class="label">Other assignments:</label>
             {filteredPosts.length > 0 ? filteredPosts : posts}
-
           </div>
         )
       }

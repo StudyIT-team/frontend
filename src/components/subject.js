@@ -12,21 +12,22 @@ import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import WarningIcon from '@material-ui/icons/Warning';
 import { makeStyles } from '@material-ui/core/styles';
+import {Redirect} from 'react-router-dom';
 
-export default class Assignment extends React.Component {
+
+export default class Subject extends React.Component {
+    onSubmit=()=>{
+        return <Redirect to="http://localhost:3000/teacher-assignment"/>
+    }
     render() {
       return (
         <div className="post">
             <div className="postTitle">
             <span className="label">{this.props.value.title}</span>
             </div>
-            <div className="about">
-            <span>Deadline:{this.props.value.deadline}</span>
-            </div>
-            <div className="content">
-            <span>{this.props.value.content}</span>
-            </div>
-            
+            <a  href="/teacher-assignment">
+            <button className="button-subjects float-right">Add assignment</button>
+            </a>
       </div>
       )
     }
