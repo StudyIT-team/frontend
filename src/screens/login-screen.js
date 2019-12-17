@@ -85,6 +85,18 @@ class LoginScreen extends React.Component {
         this.props.history.push('/success');
     }
 
+    hardcodedLoginDemo(event) {
+        console.log(this.state.username);
+        if (this.state.username == "rosian.adrian@cs.ubbcluj.ro" && this.state.password == "ppd123" && this.state.isTeacher == true) {
+            this.setState({ isLoggedIn: true });
+            this.props.history.push('/teacher-news');
+        } else {
+            this.setState({
+                isLoggedIn: false
+            });
+        }
+    }
+
     restartLogin(){
         this.setState({
             isLoggedIn : undefined
@@ -157,13 +169,13 @@ class LoginScreen extends React.Component {
                                     </Grid>
                                 </Grid>
                                 <Button
-                                    type="submit"
+                                    // type="submit"
                                     fullWidth
                                     variant="contained"
                                     color="primary"
                                     className={classes.submit}
                                     style={{ backgroundColor: "#750080" }}
-                                    onClick={this.submitLogin.bind(this)}>
+                                    onClick={this.hardcodedLoginDemo.bind(this)}>
                                         Sign In 
                                 </Button>
                                 <Grid item xs>

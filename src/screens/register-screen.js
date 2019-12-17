@@ -220,10 +220,10 @@ class RegisterScreen extends React.Component {
                                 Create Account
                             </Typography>
                             <form className={classes.form} noValidate>
-                                <FormControlLabel
+                                {/* <FormControlLabel
                                     control = {<Checkbox value="role" color="primary" onChange={this.changeIsTeacher.bind(this)} />}
                                     label = "Teacher?"
-                                />
+                                /> */}
                                 <TextField 
                                     variant = "outlined"
                                     margin  = "normal"
