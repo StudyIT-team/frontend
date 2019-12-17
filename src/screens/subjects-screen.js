@@ -42,7 +42,7 @@ class SubjectsScreen extends React.Component {
       else
       return (<button className="button" key={index} type="button" onClick={() => this.handleRemove(index)}>
       X
-    </button>);; 
+    </button>);
     }
     handleRemove(i) {
       const values = this.state.subjects;
