@@ -194,9 +194,7 @@
 .subject-form {
   background: #90caf9 ;
   padding: 20px;
-<<<<<<< HEAD
-}
-
+}   
 .MuiContainer-root {
   width: 100%;
   box-sizing: border-box;
@@ -204,8 +202,7 @@
   margin-right: auto !important;
   height: 90vh !important;
   overflow: auto;
+  /* max-width: s !important; */
 }
 select .selected:option { display:none}
-=======
-}   
->>>>>>> 8b561f897b350489445c9d13461d3cd2f444c5d7
+

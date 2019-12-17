@@ -41,7 +41,7 @@ export default class AddAssignment extends React.Component {
                 /> */}
             <label>
               Title:
-              <input type="text" ref={(input) => this.title = input} />
+              <input type="text" class="form-control" ref={(input) => this.title = input} />
             </label>
             <label>
               Content:

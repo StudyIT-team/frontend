@@ -21,7 +21,8 @@ class TeacherAssignmentsScreen extends React.Component {
    
     render() {
         return(
-            <Container component="main" maxWidth="xs" >
+            // <Container component="main" maxWidth="sm" >
+            <Container className="scrollable-auto">
                  <CssBaseline />
                     <AssignmentList/>
                  
