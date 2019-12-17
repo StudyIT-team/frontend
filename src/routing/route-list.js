@@ -12,6 +12,7 @@ import TeacherAssignmentsScreen from '../screens/teacher-assignments-screen';
 import TeacherSubjectsScreen from '../screens/teacher-subjects-screen';
 import SubjectsScreen from '../screens/subjects-screen';
 import TeacherLanding from '../screens/demo-teacher-landing';
+import StudentLanding from '../screens/demo-student-landing';
 import TeacherTimetable from '../screens/teacher-timetable-screen';
 
 export const routeList = [
@@ -20,6 +21,7 @@ export const routeList = [
     <Route exact path="/register" component={RegisterScreen}/>,
     <Route exact path="/invalid" component={App}/>,
     <Route exact path="/teacher" component={TeacherLanding}/>,
+    <Route exact path='/student' component={StudentLanding}/>,
     <Route exact path="/news" component={NewsScreen}/>,
     <Route exact path="/teacher-news" component={TeacherNewsScreen}/>,
     <Route exact path="/teacher-assignment" component={TeacherAssignmentsScreen}/>,
