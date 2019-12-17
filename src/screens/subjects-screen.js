@@ -38,11 +38,11 @@ class SubjectsScreen extends React.Component {
         !subject.category.localeCompare(mandatory[1]) ||
         !subject.category.localeCompare(mandatory[2]) ||
         !subject.category.localeCompare(mandatory[3]) )
-        return "";
+        return ""
       else
       return (<button className="button" key={index} type="button" onClick={() => this.handleRemove(index)}>
       X
-    </button>);
+    </button>);; 
     }
     handleRemove(i) {
       const values = this.state.subjects;

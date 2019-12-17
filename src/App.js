@@ -4,28 +4,12 @@ import './App.css';
 import HomeIcon from '@material-ui/icons/Home';
 import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';
 import {Link} from 'react-router-dom';
-
-import TimetableComponent from './components/time-table';
-import { Container } from '@material-ui/core';
+import LoginScreen from './screens/login-screen.js';
 
 function App() {
   return (
     <div className="App">
-     <ul>
-       <li>
-         <Link to="/success">Success</Link>
-       </li>
-       <li>
-         <Link to="/login">Login</Link>
-       </li>
-       <li>
-         <Link to="/register">Register</Link>
-       </li>
-       <li>
-         <Link to="/timetable">Timetable</Link>
-       </li>
-     </ul>
-
+      <LoginScreen />
     </div>
   );
 }

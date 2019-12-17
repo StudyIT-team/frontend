@@ -5,37 +5,30 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import Link from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import loginService from '../services/login-service';
 import { ErrorSnackbar } from '../components/error-snackbar';
 import { Paper, Card } from '@material-ui/core';
-import LaptopChromebookIcon from '@material-ui/icons/LaptopChromebook';
-import Grid from '@material-ui/core/Grid';
-import { withRouter } from 'react-router-dom';
-import newsService from '../services/news-service';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
+import NewsPost from '../components/news-post';
 import NewsFeed from '../components/news-feed';
+import TeacherSubjectsList from '../components/teacher-subjects-list';
 
-class NewsScreen extends React.Component {
+class TeacherSubjectsScreen extends React.Component {
    
     render() {
         return(
             <Container component="main" maxWidth="xs" >
                  <CssBaseline />
-                    <NewsFeed/>
-                 {/* <Searchbar/>
-                 <NewsPost/>
-                 <br></br>
-                <NewsPost/>
-                <NewsPost/>
-                <NewsPost/> */}
+                    <TeacherSubjectsList/>
             </Container>
             
         );
     }
 }
-export default NewsScreen;
+export default TeacherSubjectsScreen;
