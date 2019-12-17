@@ -30,7 +30,7 @@ class NavBar extends React.Component{
             <IconButton edge="start" 
               className={classes.menuButton}  
               aria-label="menu"> 
-              <Sidebar pageWrapId={"page-wrap"} outerContainerId={"App"}/>
+              <Sidebar className="menu" pageWrapId={"page-wrap"} outerContainerId={"App"}/>
             </IconButton>
             <Typography id="page-wrap" variant="h6" className={classes.title}>
               StudyIT
