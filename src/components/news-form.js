@@ -8,9 +8,11 @@ export default class NewsForm extends React.Component {
   
     handleSubmit(event) {
       this.props.onSubmit({
+        title: this.title.value,
         category: this.category.value,
         content: this.content.value
       });
+      this.title.value='';
       this.category.value = categories[0];
       this.content.value = '';
       event.preventDefault();
@@ -32,7 +34,7 @@ export default class NewsForm extends React.Component {
             <br></br>
             <label>
               Title:
-              <input type="text" ref={(input) => this.content = input} />
+              <input type="text" ref={(input) => this.title = input} />
             </label>
             <label>
               Content:

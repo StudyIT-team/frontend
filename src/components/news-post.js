@@ -19,12 +19,9 @@ export default class NewsPost extends React.Component {
         <div className="post">
             <div className="postTitle">
             <span className="label">{this.props.value.title}</span>
-            <span></span>
             </div>
             <div className="about">
             <span className="subject">{this.props.value.category}</span>
-            |
-            <span className="datetime">{this.props.value.datetime}</span>
             </div>
             <div className="content">
             <span>{this.props.value.content}</span>

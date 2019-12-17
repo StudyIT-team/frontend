@@ -41,10 +41,6 @@ export default class TeacherNewsFeed extends React.Component{
         );
         return (
           <div className="feed">
-            <NewsForm onSubmit={this.handleNewPost} />
-            <label>
-              Your posts:
-            </label>
             <label class="label">Add a new post:</label>
             <NewsForm onSubmit={this.handleNewPost} />
             <label class="label">Other posts:</label>

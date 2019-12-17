@@ -47,10 +47,10 @@ export default class AssignmentList extends React.Component {
     return (
       <div className="feed">
         <label class="label">
-          Add a new assignment for the 'Parallel and distributed programming'
-          course:
+          Add a new assignment:
         </label>
         <AddAssignment onSubmit={this.handleNewPost} />
+        
         <label class="label">Other assignments:</label>
         {filteredPosts.length > 0 ? filteredPosts : posts}
       </div>
