@@ -92,6 +92,7 @@ class LoginScreen extends React.Component {
             this.props.history.push('/teacher');
         } else {
             if (this.state.username == "ccie2277@scs.ubbcluj.ro" && this.state.password == "test123" && this.state.isTeacher == false) {
+                console.log("logged in");
                 this.setState({ isLoggedIn: true });
                 this.props.history.push('/student');
             } else {
