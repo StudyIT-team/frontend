@@ -9,7 +9,7 @@ export default class Sidebar extends Component {
 
   render(){
     return (
-      <Menu id="menu">
+      <Menu className="menu">
         <a className="menu-item" href="/">
           <HomeIcon/>
           Home

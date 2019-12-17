@@ -29,12 +29,13 @@
 
 /* sidebar Menu */
 
-#menu{
+.menu{
   margin-top: -4.5vh !important;
   margin-left: -4.7vw !important;
   width: 20vw !important;
-  z-index: 10;
-  height: 100vh !important;
+  z-index: 3 !important;
+  min-height:99.7vh !important;
+  position: fixed;
 }
 
 #page-wrap {
@@ -91,7 +92,9 @@
   margin-left: -4.7vw !important;
   width: 20vw !important;
   height: 100vh !important;
-  display: none;
+  display: none !important;
+  min-height:99.7vh !important;
+  position: fixed;
 }
 
 .post {
@@ -146,4 +149,14 @@
 .subject-form {
   background: #90caf9 ;
   padding: 20px;
+}
+
+.MuiContainer-root {
+  width: 100%;
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: -0.2vw !important;
+  height: 90vh !important;
+  overflow: auto;
+
 }

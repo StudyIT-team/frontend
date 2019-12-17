@@ -4,6 +4,7 @@ import { Table } from 'material-ui';
 import SubjectsService from '../services/subjects-service';
 import DataTable from 'react-data-table-component';
 import { Container, Button } from '@material-ui/core';
+import { animateScroll } from "react-scroll";
 
 const mandatory = ['Limbaje formale si tehnici de compilare','Proiect colectiv'
                     ,'Programare paralele si distribuita','Programare pentru dispozitive mobile'];
@@ -31,6 +32,14 @@ class SubjectsScreen extends React.Component {
       this.handleFilter = this.handleFilter.bind(this);
     }
 
+    handleRemove(i) {
+      const values = this.state.subjects;
+      values.splice(i, 1);
+      this.setState({
+        subjects: values
+      });
+    }
+
     handleNewOptional(subject) {
       this.setState({
         subjects: this.state.subjects.concat([subject])
@@ -48,30 +57,57 @@ class SubjectsScreen extends React.Component {
 
     render() {
       const subjects = this.state.subjects.map((subject, index) =>
-        <Subject key={index} value={subject} />
+      <div key={index} value={subject}>
+        {console.log(subject.category, mandatory[0])}
+      {(!subject.category.localeCompare(mandatory[0]) || 
+        !subject.category.localeCompare(mandatory[1]) ||
+        !subject.category.localeCompare(mandatory[2]) ||
+        !subject.category.localeCompare(mandatory[3])
+) ? "" : <button key={index} type="button" onClick={() => this.handleRemove(index)}>
+X
+</button>}
+        <Subject key={index} value={subject}>
+        </Subject>
+        
+      </div>
       );
       const filteredSubjects = this.state.filteredSubjects.map((subject, index) =>
-        <Subject key={index} value={subject} />
+      <div key={index} value={subject}>
+       {console.log(subject.category, mandatory[0])}
+      {(!subject.category.localeCompare(mandatory[0]) || 
+        !subject.category.localeCompare(mandatory[1]) ||
+        !subject.category.localeCompare(mandatory[2]) ||
+        !subject.category.localeCompare(mandatory[3])
+) ? "" : <button key={index} type="button" onClick={() => this.handleRemove(index)}>
+X
+</button>}
+      <Subject key={index} value={subject}>
+      </Subject>
+    </div>
       );
       return (
+        <Container className="scrollable-auto">
         <div className="feed">
           <Filter onFilter={this.handleFilter} />
           {filteredSubjects.length > 0 ? filteredSubjects : subjects}
           <SubjectForm onSubmit={this.handleNewOptional} />
         </div>
+        <div></div>
+        </Container>
       )
     }
   }
 
 class Subject extends React.Component {
-  render() {
+
+    render(){
     return (
       <div className="post">
         <span className="label">{this.props.value.category}</span>
         <span className="content">{this.props.value.content}</span>
       </div>
-    )
-  }
+    );  
+    }
 }
 
 class SubjectForm extends React.Component {
@@ -95,7 +131,7 @@ class SubjectForm extends React.Component {
 
   render() {
     return (
-      <div className="subject-form">
+      <div className="subject-form" style={{marginBottom:"11px"}}>
         <form onSubmit={this.handleSubmit}>
           <label style={{fontSize:"30px"}}>
             Optionals you need to enroll:
