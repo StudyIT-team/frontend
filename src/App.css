@@ -154,9 +154,9 @@
 .MuiContainer-root {
   width: 100%;
   box-sizing: border-box;
-  margin-left: auto;
-  margin-right: -0.2vw !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
   height: 90vh !important;
   overflow: auto;
-
 }
+select .selected:option { display:none}

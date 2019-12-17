@@ -32,6 +32,18 @@ class SubjectsScreen extends React.Component {
       this.handleFilter = this.handleFilter.bind(this);
     }
 
+    compare(subject, index){
+      {console.log(!subject.category.localeCompare(mandatory[0]))}
+      if (!subject.category.localeCompare(mandatory[0]) || 
+        !subject.category.localeCompare(mandatory[1]) ||
+        !subject.category.localeCompare(mandatory[2]) ||
+        !subject.category.localeCompare(mandatory[3]) )
+        return "";
+      else
+      return (<button className="button" key={index} type="button" onClick={() => this.handleRemove(index)}>
+      X
+    </button>);; 
+    }
     handleRemove(i) {
       const values = this.state.subjects;
       values.splice(i, 1);
@@ -58,14 +70,7 @@ class SubjectsScreen extends React.Component {
     render() {
       const subjects = this.state.subjects.map((subject, index) =>
       <div key={index} value={subject}>
-        {console.log(subject.category, mandatory[0])}
-      {(!subject.category.localeCompare(mandatory[0]) || 
-        !subject.category.localeCompare(mandatory[1]) ||
-        !subject.category.localeCompare(mandatory[2]) ||
-        !subject.category.localeCompare(mandatory[3])
-) ? "" : <button key={index} type="button" onClick={() => this.handleRemove(index)}>
-X
-</button>}
+        {this.compare(subject,index)}
         <Subject key={index} value={subject}>
         </Subject>
         
@@ -74,13 +79,7 @@ X
       const filteredSubjects = this.state.filteredSubjects.map((subject, index) =>
       <div key={index} value={subject}>
        {console.log(subject.category, mandatory[0])}
-      {(!subject.category.localeCompare(mandatory[0]) || 
-        !subject.category.localeCompare(mandatory[1]) ||
-        !subject.category.localeCompare(mandatory[2]) ||
-        !subject.category.localeCompare(mandatory[3])
-) ? "" : <button key={index} type="button" onClick={() => this.handleRemove(index)}>
-X
-</button>}
+       {this.compare(subject,index)}
       <Subject key={index} value={subject}>
       </Subject>
     </div>
@@ -115,7 +114,9 @@ class SubjectForm extends React.Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
-      content: 'student enrolled'
+      content: 'student enrolled',
+      optionals:optionals,
+      optional:0
     }
   }
 
@@ -124,10 +125,30 @@ class SubjectForm extends React.Component {
       category: this.category.value,
       content: 'student enrolled'
     });
+    var elem = 0;
+    var option = [];
+    var cont = 0;
+    option.length = optionals.length-1;
+    for (var i  = 0; i<optionals.length;i++){
+      if (optionals[i] == this.category.value){
+        elem = i;
+      }
+      else{
+        option[cont] = optionals[i];
+        cont++;
+      }
+    }
     this.category.value = optionals[0];
+    this.setState({
+      optional: optionals.splice(elem,1),
+    });
+    this.setState({
+      optionals: option,
+    });
     this.content.value = 'student enrolled';
     event.preventDefault();
   }
+  
 
   render() {
     return (
@@ -138,8 +159,10 @@ class SubjectForm extends React.Component {
             <br></br>
             <select ref={(input) => this.category = input}>
               {optionals.map((category, index) =>
-                <option key={category} value={category}>{category}</option>
-              )}
+                <option key={index} value={category}>{category}</option>
+              )}  
+              
+              
             </select>
           </label>
           <label style={{display:"none"}}>
