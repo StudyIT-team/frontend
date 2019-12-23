@@ -48,7 +48,7 @@ class RegisterScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      snackbarMessage: "teehee",
+      snackbarMessage: "",
       successRegister: undefined,
       firstName: "",
       lastName: "",
@@ -56,8 +56,8 @@ class RegisterScreen extends React.Component {
       password: "",
       group: "",
       repeatedPassword: "",
-      departments: [{"id":1,"name":"Matematica Romana","year":1},{"id":2,"name":"Matematica Romana","year":2},{"id":3,"name":"Matematica Romana","year":3},{"id":4,"name":"Informatica Romana","year":1},{"id":5,"name":"Informatica Romana","year":2},{"id":6,"name":"Informatica Romana","year":3},{"id":7,"name":"Matematica-Informatica Romana","year":1},{"id":8,"name":"Matematica-Informatica Romana","year":2},{"id":9,"name":"Matematica-Informatica Romana","year":3},{"id":10,"name":"Matematica Maghiara","year":1},{"id":11,"name":"Matematica Maghiara","year":2},{"id":12,"name":"Matematica Maghiara","year":3},{"id":13,"name":"Informatica Maghiara","year":1},{"id":14,"name":"Informatica Maghiara","year":2},{"id":15,"name":"Informatica Maghiara","year":3},{"id":16,"name":"Matematica-Informatica Maghiara","year":1},{"id":17,"name":"Matematica-Informatica Maghiara","year":2},{"id":18,"name":"Matematica-Informatica Maghiara","year":3},{"id":19,"name":"Informatica Germana","year":1},{"id":20,"name":"Informatica Germana","year":2},{"id":21,"name":"Informatica Germana","year":3},{"id":22,"name":"Matematica-Informatica Engleza","year":1},{"id":23,"name":"Matematica-Informatica Engleza","year":2},{"id":24,"name":"Matematica-Informatica Engleza","year":3},{"id":25,"name":"Informatica Engleza","year":1},{"id":26,"name":"Informatica Engleza","year":2},{"id":27,"name":"Informatica Engleza","year":3}],
-      groups: ["911/1","911/2","912/1","912/2","913/1","913/2","914/1","914/2","915/1","915/2","916/1","916/2","917/1","917/2"],
+      departments: {},
+      groups: {},
       selectedDepartment: "",
       selectedYear: "",
       selectedDeptID: "",
@@ -68,21 +68,29 @@ class RegisterScreen extends React.Component {
 
   async componentDidMount() {
     const departments = await registerService.getDepartments();
-    // this.setState({ departments: departments.data });
+    if (departments.status === 200) {
+      this.setState({ departments: departments.data });
+    } else {
+      this.setState({ snackbarMessage: "Internal error! Departments could not be fetched!" });
+    }
   }
 
-  // async componentDidUpdate() {
-  //   if (this.state.selectedYear !== "") {
-  //     const deptID = this.determineDepartmentID(this.state.selectedYear);
-  //     if (deptID !== this.state.selectedDeptID) {
-  //       const detereminedGroups = await registerService.getGroups(deptID);
-  //       this.setState({
-  //         groups: detereminedGroups.data,
-  //         selectedDeptID: deptID
-  //       });
-  //     }
-  //   }
-  // }
+  async componentDidUpdate() {
+    if (this.state.selectedYear !== "") {
+      const deptID = this.determineDepartmentID(this.state.selectedYear);
+      if (deptID !== this.state.selectedDeptID) {
+        const detereminedGroups = await registerService.getGroups(deptID);
+        if (detereminedGroups.status === 200) {
+          this.setState({
+            groups: detereminedGroups.data,
+            selectedDeptID: deptID
+          });
+        } else {
+          this.setState({ snackbarMessage: "Internal error! Groups could not be fetched!" });
+        }
+      }
+    }
+  }
 
   createGroupsSelectItems() {
     let items = [];
@@ -176,20 +184,20 @@ class RegisterScreen extends React.Component {
   async submitRegister(event) {
     event.preventDefault();
     if (this.state.password != this.state.repeatedPassword) {
-      alert("Passwords must match!");
+      this.setState({
+        snackbarMessage: "Passwords do not match!",
+        successRegister: false
+      });
       return;
     } else {
-      alert("Account created successfully!");
-      // if (!this.state.isTeacher) {
-      //     const email = this.state.email;
-      //     const firstName = this.state.firstName;
-      //     const group = this.state.group;
-      //     const lastName = this.state.lastName;
-      //     const password = this.state.password;
+      const email = this.state.email;
+      const firstName = this.state.firstName;
+      const group = this.state.group;
+      const lastName = this.state.lastName;
+      const password = this.state.password;
 
-      //     const result = await registerService.registerStudent(firstName, lastName, email, password, group);
-      //     console.log(result);
-      // }
+      const result = await registerService.registerStudent(firstName, lastName, email, password, group);
+      console.log(result);
     }
   }
 

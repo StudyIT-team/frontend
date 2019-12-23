@@ -9,45 +9,61 @@ class RegisterService{
         const url = 'http://ec2-3-124-8-117.eu-central-1.compute.amazonaws.com/studyit/api/v1/departments?clientId=studyit-35c2-11e9-b210-d663bd873d93';
         const result = await this.axios.get(url)
             .then(response => {
-                console.log("works");
-                console.log(response);
+                const res = {
+                    data: response.data,
+                    status: response.status
+                }
+                return res;
             })
             .catch(error => {
-                console.log("not works");
-                console.log(error);
+                const res = {
+                    data: error.response.data,
+                    status: error.response.status
+                }
             })
+        return result;
     }
 
     async getGroups(department) {
         const url = 'http://ec2-3-124-8-117.eu-central-1.compute.amazonaws.com/studyit/api/v1/departments/' + department + '/groups?clientId=studyit-35c2-11e9-b210-d663bd873d93';
         const result = await this.axios.get(url)
             .then(response => {
-                console.log("works");
-                console.log(response);
+                const res = {
+                    data: response.data,
+                    status: response.status
+                }
+                return res;
             })
             .catch(error => {
-                console.log("not works");
-                console.log(error);
+                const res = {
+                    data: error.response.data,
+                    status: error.response.status
+                }
             })
+        return result;
     }
 
-    // async registerStudent(firstName, lastName, email, password, group) {
-    //     const result = await this.axios.post('http://ec2-3-124-8-117.eu-central-1.compute.amazonaws.com/studyit/api/v1/departments?clientId=studyit-35c2-11e9-b210-d663bd873d93', {
-    //         email: email,
-    //         firstName: firstName,
-    //         group: group,
-    //         lastName: lastName,
-    //         password: password,
-    //     })
-    //     .then(response => {
-    //         console.log(response)
-    //     })
-    //     .catch(error => {
-    //         console.log(error)
-    //     })
-    //     console.log(result);
-    //     return result;
-    // }
+    async registerStudent(firstName, lastName, email, password, group) {
+        // const url = 'http://ec2-3-124-8-117.eu-central-1.compute.amazonaws.com/studyit/api/v1/users/student?clientId=studyit-35c2-11e9-b210-d663bd873d93';
+        // const requestBody = {
+        //     email: email,
+        //     firstName: firstName,
+        //     group: group,
+        //     lastName: lastName,
+        //     password: password,
+        // };
+        // console.log(requestBody);
+        // const result = await this.axios.post(url, requestBody)
+        // .then(response => {
+        //     console.log(response)
+        // })
+        // .catch(error => {
+        //     console.log(error)
+        // })
+        // console.log(result);
+        // // return result;
+        console.log("to be fixed");
+    }
 
 }
 
