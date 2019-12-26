@@ -10,10 +10,9 @@ import {
   AppointmentTooltip
 } from "@devexpress/dx-react-scheduler-material-ui";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import { blue } from "@material-ui/core/colors";
-import { appointments } from "../data/data.js";
+import { blue, pink } from "@material-ui/core/colors";
 
-const theme = createMuiTheme({ palette: { type: "light", primary: blue } });
+const theme = createMuiTheme({ palette: { type: "light", primary: pink } });
 
 export default class TeacherTimetable extends React.Component {
   constructor(props) {
@@ -23,29 +22,29 @@ export default class TeacherTimetable extends React.Component {
       data: [
         {
           title: "Parallel and Distributed Programming",
-          startDate: new Date(2019, 12, 27, 12, 0),
-          endDate: new Date(2019, 12, 27, 14, 0),
+          startDate: new Date(2019, 11, 27, 12, 0),
+          endDate: new Date(2019, 11, 27, 14, 0),
           id: 1,
           location: "L308"
         },
         {
           title: "Parallel and Distributed Programming",
-          startDate: new Date(2019, 12, 27, 14, 0),
-          endDate: new Date(2019, 12, 27, 16, 0),
+          startDate: new Date(2019, 11, 27, 14, 0),
+          endDate: new Date(2019, 11, 27, 16, 0),
           id: 2,
           location: "L308"
         },
         {
           title: "Parallel and Distributed Programming",
-          startDate: new Date(2019, 12, 27, 16, 0),
-          endDate: new Date(2019, 12, 27, 18, 0),
+          startDate: new Date(2019, 11, 27, 16, 0),
+          endDate: new Date(2019, 11, 27, 18, 0),
           id: 3,
           location: "L308"
         },
         {
           title: "Parallel and Distributed Programming",
-          startDate: new Date(2019, 12, 27, 18, 0),
-          endDate: new Date(2019, 12, 27, 20, 0),
+          startDate: new Date(2019, 11, 27, 18, 0),
+          endDate: new Date(2019, 11, 27, 20, 0),
           id: 4,
           location: "L001"
         }
@@ -54,12 +53,15 @@ export default class TeacherTimetable extends React.Component {
   }
 
   render() {
+    const { data } = this.state;
+
     return (
-      <Container maxWidth="sm">
+      console.log(data),
+      <Container maxWidth="m">
         <MuiThemeProvider theme={theme}>
           <Paper>
-            <Scheduler data={this.state.data}>
-              <ViewState currentDate="2019-12-25" />
+            <Scheduler data={data}>
+              <ViewState currentDate="2019-12-26" />
               {/* <DayView startDayHour={8} endDayHour={20} /> */}
               <WeekView startDayHour={8} endDayHour={20} />
               <Appointments />
