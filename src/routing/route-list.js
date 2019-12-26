@@ -11,8 +11,8 @@ import TeacherNewsScreen from '../screens/teacher-news-screen';
 import TeacherAssignmentsScreen from '../screens/teacher-assignments-screen';
 import TeacherSubjectsScreen from '../screens/teacher-subjects-screen';
 import SubjectsScreen from '../screens/subjects-screen';
-import TeacherLanding from '../screens/demo-teacher-landing';
-import StudentLanding from '../screens/demo-student-landing';
+import TeacherLanding from '../screens/teacher-landing-page';
+import StudentLanding from '../screens/student-landing-page';
 import TeacherTimetable from '../screens/teacher-timetable-screen';
 
 export const routeList = [

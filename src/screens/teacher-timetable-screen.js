@@ -1,90 +1,72 @@
 import React from "react";
-import { Container } from "@material-ui/core";
-import Timetable from "react-timetable-events";
-import moment from "moment";
+import Paper from "@material-ui/core/Paper";
+import Container from '@material-ui/core/Container';
+import { ViewState } from "@devexpress/dx-react-scheduler";
+import {
+  Scheduler,
+  WeekView,
+  DayView,
+  Appointments,
+  AppointmentTooltip
+} from "@devexpress/dx-react-scheduler-material-ui";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import { blue } from "@material-ui/core/colors";
+import { appointments } from "../data/data.js";
+
+const theme = createMuiTheme({ palette: { type: "light", primary: blue } });
 
 export default class TeacherTimetable extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
+
     this.state = {
-      // events: this.props.events,
-      hoursInterval: [8, 20],
-      timeLabel: "Hour",
-
-      renderHour(hour, defaulAttributes, styles) {
-        return (
-          <div {...defaulAttributes} key={hour}>
-            {hour}
-          </div>
-        );
-      },
-      renderEvent(event, defaultAttributes, styles) {
-        return (
-          <div
-            {...defaultAttributes}
-            onClick={() => {
-              console.log("hello" + event.id);
-            }}
-            title={event.name}
-            key={event.id}
-          >
-            <span className={styles.event_info}>[ {event.name} ]</span>
-            <span className={styles.event_info}> {event.formation} </span>
-            <span className={styles.event_info}>
-              {event.startTime.format("HH:mm")} -{" "}
-              {event.endTime.format("HH:mm")}
-            </span>
-          </div>
-        );
-      },
-
-      events: {
-        monday: [],
-        tuesday: [],
-        wednesday: [],
-        thursday: [],
-        friday: [
-          {
-            id: 1,
-            name: "Programare Paralelă și Distribuită",
-            formation: "931/1",
-            type: "lab",
-            startTime: moment("2018-02-22T12:00:00"),
-            endTime: moment("2018-02-22T14:00")
-          },
-          {
-            id: 2,
-            name: "Programare Paralelă și Distribuită",
-            formation: "932/1",
-            type: "lab",
-            startTime: moment("2018-02-22T14:00"),
-            endTime: moment("2018-02-22T16:00")
-          },
-          {
-            id: 3,
-            name: "Programare Paralelă și Distribuită",
-            formation: "931/2",
-            type: "lab",
-            startTime: moment("2018-02-22T16:00"),
-            endTime: moment("2018-02-22T18:00")
-          },
-          {
-            id: 4,
-            name: "Programare Paralelă și Distribuită",
-            formation: "932/2",
-            type: "lab",
-            startTime: moment("2018-02-22T18:00"),
-            endTime: moment("2018-02-22T20:00")
-          }
-        ]
-      }
+      data: [
+        {
+          title: "Parallel and Distributed Programming",
+          startDate: new Date(2019, 12, 27, 12, 0),
+          endDate: new Date(2019, 12, 27, 14, 0),
+          id: 1,
+          location: "L308"
+        },
+        {
+          title: "Parallel and Distributed Programming",
+          startDate: new Date(2019, 12, 27, 14, 0),
+          endDate: new Date(2019, 12, 27, 16, 0),
+          id: 2,
+          location: "L308"
+        },
+        {
+          title: "Parallel and Distributed Programming",
+          startDate: new Date(2019, 12, 27, 16, 0),
+          endDate: new Date(2019, 12, 27, 18, 0),
+          id: 3,
+          location: "L308"
+        },
+        {
+          title: "Parallel and Distributed Programming",
+          startDate: new Date(2019, 12, 27, 18, 0),
+          endDate: new Date(2019, 12, 27, 20, 0),
+          id: 4,
+          location: "L001"
+        }
+      ]
     };
   }
 
   render() {
     return (
-      <Container>
-        <Timetable {...this.state} />
+      <Container maxWidth="sm">
+        <MuiThemeProvider theme={theme}>
+          <Paper>
+            <Scheduler data={this.state.data}>
+              <ViewState currentDate="2019-12-25" />
+              {/* <DayView startDayHour={8} endDayHour={20} /> */}
+              <WeekView startDayHour={8} endDayHour={20} />
+              <Appointments />
+              <AppointmentTooltip />
+            </Scheduler>
+          </Paper>
+        </MuiThemeProvider>
       </Container>
     );
   }
