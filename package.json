@@ -19,6 +19,7 @@
     "moment": "^2.24.0",
     "react": "^16.12.0",
     "react-burger-menu": "^2.6.12",
+    "react-data-grid": "^6.1.0",
     "react-data-table-component": "^3.10.3",
     "react-dom": "^16.11.0",
     "react-draggable": "^4.1.0",
