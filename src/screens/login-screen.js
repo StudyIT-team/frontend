@@ -46,17 +46,16 @@ class LoginScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: "",
+            email: "",
             password: "",
-            isTeacher: false,
+            message: "",
             isLoggedIn: undefined
         }
     }
 
-
-    changeUsername(event) {
+    changeEmail(event) {
         this.setState({
-            username: event.target.value
+            email: event.target.value
         })
         
     }
@@ -66,40 +65,22 @@ class LoginScreen extends React.Component {
             password: event.target.value
         })
     }
-    changeIsTeacher(event, isChecked) {
-
-        this.setState({
-            isTeacher: isChecked
-        })
-    }
 
     async submitLogin(event) {
         event.preventDefault();
-        const isLoggedIn = await loginService.loginUser(this.state.username, this.state.password, this.state.isTeacher);
-        if(isLoggedIn === false){
-           this.setState({
-                isLoggedIn: isLoggedIn
-            });
-            return;
-        }
-        this.props.history.push('/success');
-    }
-
-    hardcodedLoginDemo(event) {
-        console.log(this.state.username);
-        if (this.state.username == "rosian.adrian@cs.ubbcluj.ro" && this.state.password == "ppd123" && this.state.isTeacher == true) {
+        const response = await loginService.loginUser(this.state.email, this.state.password);
+        console.log(response);
+        if(response.status == 200) {
             this.setState({ isLoggedIn: true });
-            this.props.history.push('/teacher');
-        } else {
-            if (this.state.username == "ccie2277@scs.ubbcluj.ro" && this.state.password == "test123" && this.state.isTeacher == false) {
-                console.log("logged in");
-                this.setState({ isLoggedIn: true });
-                this.props.history.push('/student');
+            localStorage.setItem('token', response.data.access_token);
+            localStorage.setItem('email', this.state.email);
+            if(response.data.user_role === "PROFESSOR") {
+                this.props.history.push('/teacher');
             } else {
-                this.setState({
-                    isLoggedIn: false
-                });
+                this.props.history.push('/student');
             }
+        } else {
+            this.setState({ isLoggedIn: false, message: "Incorrect E-mail Address or Password! Please try again."})
         }
     }
 
@@ -116,7 +97,7 @@ class LoginScreen extends React.Component {
 
     render() {
         const classes = this.props.classes;
-        const errorSnackBar = <ErrorSnackbar variant="error" message="Cannot log in. Try again!" onClose={this.restartLogin.bind(this)}/>;
+        const errorSnackBar = <ErrorSnackbar variant="error" message={this.state.message} onClose={this.restartLogin.bind(this)}/>;
         return (
             <div>
                 <Container component="main" maxWidth="xs" >
@@ -135,12 +116,12 @@ class LoginScreen extends React.Component {
                                 margin="normal"
                                 required
                                 fullWidth
-                                id="username"
-                                label="User name"
-                                name="username"
-                                autoComplete="username"
+                                id="email"
+                                label="E-mail"
+                                name="email"
+                                autoComplete="email"
                                 autoFocus
-                                onChange={this.changeUsername.bind(this)}
+                                onChange={this.changeEmail.bind(this)}
                             />
                             <TextField
                                 variant="outlined"
@@ -153,10 +134,6 @@ class LoginScreen extends React.Component {
                                 id="password"
                                 autoComplete="current-password"
                                 onChange={this.changePassword.bind(this)}
-                            />
-                            <FormControlLabel
-                                control={<Checkbox value="remember" color="primary" onChange={this.changeIsTeacher.bind(this)} />}
-                                label="Teacher?"
                             />
                             <Grid container>
                                 <Grid container>
@@ -181,7 +158,7 @@ class LoginScreen extends React.Component {
                                     color="primary"
                                     className={classes.submit}
                                     style={{ backgroundColor: "#750080" }}
-                                    onClick={this.hardcodedLoginDemo.bind(this)}>
+                                    onClick={this.submitLogin.bind(this)}>
                                         Sign In 
                                 </Button>
                                 <Grid item xs>

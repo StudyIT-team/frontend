@@ -17,6 +17,7 @@
     "history": "^4.10.1",
     "material-ui": "^0.20.2",
     "moment": "^2.24.0",
+    "query-string": "^6.9.0",
     "react": "^16.12.0",
     "react-burger-menu": "^2.6.12",
     "react-data-grid": "^6.1.0",

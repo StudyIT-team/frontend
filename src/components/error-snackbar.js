@@ -24,7 +24,7 @@ const useStyles1 = makeStyles(theme => ({
 
   error: {
     backgroundColor: theme.palette.error.dark,
-    width: "50%",
+    width: "100%",
     justifySelf: 'center'
   },
 
