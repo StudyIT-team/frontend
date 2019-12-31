@@ -100,7 +100,7 @@ class LoginScreen extends React.Component {
         const errorSnackBar = <ErrorSnackbar variant="error" message={this.state.message} onClose={this.restartLogin.bind(this)}/>;
         return (
             <div>
-                <Container component="main" maxWidth="xs" >
+                <Container style={{marginBottom: '-50px'}} component="main" maxWidth="xs" >
                     <CssBaseline />
                     <Paper style={{padding: '40px', boxShadow: '2px 2px 5px 5px rgba(0, 0, 0, .5)'}}>
                     <div className={classes.paper}>

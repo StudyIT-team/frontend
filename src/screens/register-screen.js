@@ -48,15 +48,16 @@ class RegisterScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isTeacher: false,
+      snackbarMessage: "teehee",
+      successRegister: undefined,
       firstName: "",
       lastName: "",
       email: "",
       password: "",
       group: "",
       repeatedPassword: "",
-      departments: {},
-      groups: {},
+      departments: [{"id":1,"name":"Matematica Romana","year":1},{"id":2,"name":"Matematica Romana","year":2},{"id":3,"name":"Matematica Romana","year":3},{"id":4,"name":"Informatica Romana","year":1},{"id":5,"name":"Informatica Romana","year":2},{"id":6,"name":"Informatica Romana","year":3},{"id":7,"name":"Matematica-Informatica Romana","year":1},{"id":8,"name":"Matematica-Informatica Romana","year":2},{"id":9,"name":"Matematica-Informatica Romana","year":3},{"id":10,"name":"Matematica Maghiara","year":1},{"id":11,"name":"Matematica Maghiara","year":2},{"id":12,"name":"Matematica Maghiara","year":3},{"id":13,"name":"Informatica Maghiara","year":1},{"id":14,"name":"Informatica Maghiara","year":2},{"id":15,"name":"Informatica Maghiara","year":3},{"id":16,"name":"Matematica-Informatica Maghiara","year":1},{"id":17,"name":"Matematica-Informatica Maghiara","year":2},{"id":18,"name":"Matematica-Informatica Maghiara","year":3},{"id":19,"name":"Informatica Germana","year":1},{"id":20,"name":"Informatica Germana","year":2},{"id":21,"name":"Informatica Germana","year":3},{"id":22,"name":"Matematica-Informatica Engleza","year":1},{"id":23,"name":"Matematica-Informatica Engleza","year":2},{"id":24,"name":"Matematica-Informatica Engleza","year":3},{"id":25,"name":"Informatica Engleza","year":1},{"id":26,"name":"Informatica Engleza","year":2},{"id":27,"name":"Informatica Engleza","year":3}],
+      groups: ["911/1","911/2","912/1","912/2","913/1","913/2","914/1","914/2","915/1","915/2","916/1","916/2","917/1","917/2"],
       selectedDepartment: "",
       selectedYear: "",
       selectedDeptID: "",
@@ -65,23 +66,23 @@ class RegisterScreen extends React.Component {
     };
   }
 
-  async componentDidMount() {
-    const departments = await registerService.getDepartments();
-    this.setState({ departments: departments.data });
-  }
+  // async componentDidMount() {
+  //   const departments = await registerService.getDepartments();
+  //   this.setState({ departments: departments.data });
+  // }
 
-  async componentDidUpdate() {
-    if (this.state.selectedYear !== "") {
-      const deptID = this.determineDepartmentID(this.state.selectedYear);
-      if (deptID !== this.state.selectedDeptID) {
-        const detereminedGroups = await registerService.getGroups(deptID);
-        this.setState({
-          groups: detereminedGroups.data,
-          selectedDeptID: deptID
-        });
-      }
-    }
-  }
+  // async componentDidUpdate() {
+  //   if (this.state.selectedYear !== "") {
+  //     const deptID = this.determineDepartmentID(this.state.selectedYear);
+  //     if (deptID !== this.state.selectedDeptID) {
+  //       const detereminedGroups = await registerService.getGroups(deptID);
+  //       this.setState({
+  //         groups: detereminedGroups.data,
+  //         selectedDeptID: deptID
+  //       });
+  //     }
+  //   }
+  // }
 
   createGroupsSelectItems() {
     let items = [];
@@ -223,11 +224,18 @@ class RegisterScreen extends React.Component {
     }
   }
 
+  restardRegister() {
+    this.setState({
+      successRegister : undefined
+    })
+}
+
   render() {
     const classes = this.props.classes;
+    const errorSnackBar = <ErrorSnackbar variant="error" message={this.state.snackbarMessage} onClose={this.restardRegister.bind(this)}/>;
     return (
       <div>
-        <Container component="main" maxWidth="xs">
+        <Container style={{marginBottom: '-50px'}} component="main" maxWidth="xs">
           <CssBaseline />
           <Paper
             style={{
@@ -243,10 +251,6 @@ class RegisterScreen extends React.Component {
                 Create Account
               </Typography>
               <form className={classes.form} noValidate>
-                {/* <FormControlLabel
-                                    control = {<Checkbox value="role" color="primary" onChange={this.changeIsTeacher.bind(this)} />}
-                                    label = "Teacher?"
-                                /> */}
                 <TextField
                   variant="outlined"
                   margin="normal"
@@ -343,7 +347,7 @@ class RegisterScreen extends React.Component {
                   >
                     {this.createGroupsSelectItems()}
                   </Select>
-                </FormControl>
+                </FormControl> 
                 <Button
                   fullWidth
                   variant="contained"
@@ -352,7 +356,6 @@ class RegisterScreen extends React.Component {
                   style={{ backgroundColor: "#750080 " }}
                   onClick={this.submitRegister.bind(this)}
                 >
-                  {" "}
                   Sign Up
                 </Button>
                 <Grid container>
@@ -375,6 +378,7 @@ class RegisterScreen extends React.Component {
             </div>
           </Paper>
         </Container>
+        {this.state.successRegister === false ? errorSnackBar : null}
       </div>
     );
   }
