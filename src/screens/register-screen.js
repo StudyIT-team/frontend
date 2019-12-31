@@ -66,10 +66,10 @@ class RegisterScreen extends React.Component {
     };
   }
 
-  // async componentDidMount() {
-  //   const departments = await registerService.getDepartments();
-  //   this.setState({ departments: departments.data });
-  // }
+  async componentDidMount() {
+    const departments = await registerService.getDepartments();
+    // this.setState({ departments: departments.data });
+  }
 
   // async componentDidUpdate() {
   //   if (this.state.selectedYear !== "") {
