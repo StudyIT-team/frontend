@@ -54,13 +54,21 @@ class RegisterService{
         };
         const result = await this.axios.post(url, requestBody)
         .then(response => {
-            console.log(response)
+            const res = {
+                data: response.data,
+                status: response.status
+            };
+            return res;
         })
         .catch(error => {
-            console.log(error)
+            const res = {
+                data: error.response.data,
+                status: error.response.status
+            };
+            return res;
         })
         console.log(result);
-        // return result;
+        return result;
     }
 
 }

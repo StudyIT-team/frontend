@@ -183,21 +183,54 @@ class RegisterScreen extends React.Component {
 
   async submitRegister(event) {
     event.preventDefault();
-    if (this.state.password != this.state.repeatedPassword) {
+
+    const email = this.state.email;
+    const firstName = this.state.firstName;
+    const group = this.state.group;
+    const lastName = this.state.lastName;
+    const password = this.state.password;
+
+    let fieldVerification = "";
+    if (email == "") {
+      fieldVerification += "Please input your SCS e-mail address. ";
+    }
+    if (firstName == "" || lastName == "") {
+      fieldVerification += "Please input your full name in the corresponding fields. ";
+    }
+    if (group == "") {
+      fieldVerification += "Please input your department, year and group information. ";
+    }
+    if (password.length < 8) {
+      fieldVerification += "Chosen password is too simple! Please make sure it contains at least eight characters.";
+    }
+    if (password != this.state.repeatedPassword) {
+      fieldVerification += "Passwords do not match!";
+    }
+      
+    if (fieldVerification == "") {
+      const result = await registerService.registerStudent(firstName, lastName, email, password, group);
+      if (result.status === 201) {
+        this.redirectToLogin(event);
+      } else {
+        let errorMessage = '';
+        if (result.status === 409) {
+          errorMessage = result.data.exceptions.message;
+        } else {
+          for (const msg in result.data.exceptions) {
+            errorMessage += result.data.exceptions[msg].message;
+            errorMessage += ". ";
+          } 
+        }
+        this.setState({
+          snackbarMessage: errorMessage,
+          successRegister: false
+        });
+      }
+    } else {
       this.setState({
-        snackbarMessage: "Passwords do not match!",
+        snackbarMessage: fieldVerification,
         successRegister: false
       });
-      return;
-    } else {
-      const email = this.state.email;
-      const firstName = this.state.firstName;
-      const group = this.state.group;
-      const lastName = this.state.lastName;
-      const password = this.state.password;
-
-      const result = await registerService.registerStudent(firstName, lastName, email, password, group);
-      console.log(result);
     }
   }
 
