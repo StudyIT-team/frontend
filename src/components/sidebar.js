@@ -4,6 +4,8 @@ import { slide as Menu } from 'react-burger-menu';
 import '../App'
 import HomeIcon from '@material-ui/icons/Home';
 import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';
+import AnnouncementIcon from '@material-ui/icons/Announcement';
+import TableChartIcon from '@material-ui/icons/TableChart';
 
 export default class Sidebar extends Component {
 
@@ -19,8 +21,12 @@ export default class Sidebar extends Component {
           My Subjects
         </a>
         <a className="menu-item" href="/news">
-          <LocalLibraryIcon />
+          <AnnouncementIcon />
           News
+        </a>
+        <a className="menu-item" href="/timetable">
+          <TableChartIcon />
+          Time Table
         </a>
       </Menu>
     );

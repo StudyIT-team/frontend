@@ -15,7 +15,7 @@ const optionals = ['Metode intelegente de recolvare a problemelor reale','Automa
                   'Procesarea datelor video', 'Grafica pe calculator', 'Criptografie cu cheie publica', 
                   'Practica pedagogica observativa'];
 
-class SubjectsScreen extends React.Component {
+class StudentSubjectsScreen extends React.Component {
 
   constructor(props) {
       super(props);
@@ -214,4 +214,4 @@ class Filter extends React.Component {
 }
 
 
-export default SubjectsScreen;
+export default StudentSubjectsScreen;
