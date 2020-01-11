@@ -6,13 +6,15 @@ import PrivateRoute from './private-route';
 import React from 'react';
 import NewsScreen from '../screens/news-screen';
 import TimetableScreen from '../screens/timetable-screen';
+import StudentSubjectScreen from '../screens/subject-student-screen';
 
 export const routeList = [
     <Route exact path="/" component={App}/>,
-    <Route exact path="/login" component={LoginScreen}/>,
-    <Route exact path="/register" component={RegisterScreen}/>,
-    <Route exact path="/invalid" component={App}/>,
-    <Route exact path="/news" component={NewsScreen}/>,
+    <Route  path="/login" component={LoginScreen}/>,
+    <Route  path="/register" component={RegisterScreen}/>,
+    <Route  path="/news" component={NewsScreen}/>,
+    <Route path="/subject-details" component={StudentSubjectScreen}/>,
     <PrivateRoute nextUrl="/timetable" component={TimetableScreen}/>,
-    <PrivateRoute nextUrl="/success" component={App}/>
+  
+
 ];

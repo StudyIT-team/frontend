@@ -29,7 +29,7 @@ export default class PrivateRoute extends Component{
         //     return <Route exact path={nextUrl} component={comp}/>;
         // }
         // return <Redirect to="/invalid"/>;
-        return <Route exact path={this.props.nextUrl} component={this.props.component}/>
+        return <Route path={this.props.nextUrl} component={this.props.component}/>
     }
 
 

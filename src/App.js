@@ -23,6 +23,9 @@ function App() {
        <li>
          <Link to="/timetable">Timetable</Link>
        </li>
+       <li>
+         <Link to='/subject-details'>Subject detail page</Link>
+       </li>
      </ul>
 
     </div>

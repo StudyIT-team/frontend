@@ -48,6 +48,12 @@ export default {
     event_info: {
       lineHeight: "initial",
       textAlign: "center"
-    }
+    },
+    seminaryColor: "green",
+    seminaryShade: "#99ff99",
+    labColor: "yellow",
+    labShade: "#FFF8DC",
+    courseColor: "red",
+    courseShade: "#ffb3b3"
   };
   
