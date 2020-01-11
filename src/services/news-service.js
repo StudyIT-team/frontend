@@ -26,7 +26,7 @@ class NewsService{
     }
     async getSubjects(){
         try {
-            return await this.axios.get('http://3.124.8.117/studyit/api/v1/subjects');
+            return await this.axios.get('/subjects');
           } catch (error) {
             console.error(error);
         }

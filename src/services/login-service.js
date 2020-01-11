@@ -20,21 +20,32 @@ class LoginService{
         };
         const qs = require('querystring');
         const requestBody = qs.stringify(requestBodyObj).concat('&username=' + email);
-        const result = await this.axios.post(url, requestBody, config)
+        const result = await fetch(url,
+            {  
+                method : 'POST',
+                body : requestBody,
+                headers: config.headers
+            })
             .then(resp => {
-                const res = {
-                    data: resp.data,
-                    status: resp.status
+
+                if(resp.status != 200){
+                    throw new Error("Login failed")
                 }
-                return res;
+                return resp.json() 
+            })
+            .then(resp => { return {
+                status: 200,
+                data: resp
+                }
             })
             .catch(error => {
                 const res = {
-                    data: error.response.data,
-                    status: error.response.status
+                    data: "Unknown error",
+                    status: 400
                 }
                 return res;
             });
+        console.log("Result is", result)
         return result;
      }   
 }

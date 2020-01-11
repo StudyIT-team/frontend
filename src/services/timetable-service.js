@@ -6,6 +6,8 @@ import moment from "moment";
 const defaultGroup = 931;
 const defaultSemi = 1;
 
+const shameUrl = 'http://3.124.8.117/studyit/api/v1'
+
 
 class TimetableService{
 
@@ -13,19 +15,29 @@ class TimetableService{
         this.axios = getAxios();
     }
 
-    async fetchTimetable(group, semigroup){
+    async fetchTimetable(){
         
-        let getUrl = "/timetable";
-        if( group && semigroup){
-            getUrl += `?group=${group}&&semigroup=${semigroup}`;
-        }
-        else{
-            getUrl += `?group=${defaultGroup}&&semigroup=${defaultSemi}`;
-        }
+
+        
+        // let meInfo = await this.fetchMeInfo();
+        // const groupInfo = meInfo.group.split('/')
+        // let group = groupInfo[0];
+        // let semigroup = groupInfo[1];
+    
+        let getUrl = `/timetable/student/me`;
+        // getUrl += `?group=${group}&&semigroup=${semigroup}`;
+    
         const timetable = await this.axios.get(getUrl);
+        console.log("Timetable", timetable)
         
         return this.mapTimetableData(timetable);
         
+    }
+
+    async fetchMeInfo(){
+        const resp = await this.axios.get(`/users/student/me`)
+        console.log("MeInfo", resp)
+        return resp.data
     }
 
     mapTimetableData(response){

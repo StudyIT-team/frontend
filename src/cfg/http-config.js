@@ -6,28 +6,28 @@ let axiosService = null;
 
 const createAxios = () => {
 
-    // const defaultOptions = {
-    //     headers: {
-    //     'Content-Type': 'application/json',
-    //     'Access-Control-Allow-Origin' : '*',
-    //     'Access-Control-Allow-Credentials': true
-    //     },
-    //     baseURL: 'http://3.124.8.117/studyit/api/v1/',
-    // };
+    const defaultOptions = {
+        headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin' : '*',
+        'Access-Control-Allow-Credentials': true
+        },
+        baseURL: 'http://3.124.8.117/studyit/api/v1/',
+    };
 
-    // const axiosInstance = axios.create(defaultOptions);
+    const axiosInstance = axios.create(defaultOptions);
 
-    const axiosInstance = axios.create();
+    // const axiosInstance = axios.create();
 
-    // axiosInstance.interceptors.request.use(config => {
+    axiosInstance.interceptors.request.use(config => {
 
-    //     const token = localStorage.getItem("loginToken");
-    //     if(token){
-    //         config.headers.Authorization = `Bearer ${token}`;
-    //     }
-    //     return config;
+        const token = localStorage.getItem("token");
+        if(token){
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
 
-    // });
+    });
 
     axiosInstance.interceptors.response.use(resp => {
         try{

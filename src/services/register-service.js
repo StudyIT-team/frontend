@@ -6,8 +6,8 @@ class RegisterService{
     }
 
     async getDepartments() {
-        const url = 'http://ec2-3-124-8-117.eu-central-1.compute.amazonaws.com/studyit/api/v1/departments?clientId=studyit-35c2-11e9-b210-d663bd873d93';
-        const result = await this.axios.get(url)
+        const url = '/departments?clientId=studyit-35c2-11e9-b210-d663bd873d93';
+        const result = await this.axios(url)
             .then(response => {
                 const res = {
                     data: response.data,
@@ -25,7 +25,7 @@ class RegisterService{
     }
 
     async getGroups(department) {
-        const url = 'http://ec2-3-124-8-117.eu-central-1.compute.amazonaws.com/studyit/api/v1/departments/' + department + '/groups?clientId=studyit-35c2-11e9-b210-d663bd873d93';
+        const url = 'departments/' + department + '/groups?clientId=studyit-35c2-11e9-b210-d663bd873d93';
         const result = await this.axios.get(url)
             .then(response => {
                 const res = {
@@ -44,7 +44,7 @@ class RegisterService{
     }
 
     async registerStudent(firstName, lastName, email, password, group) {
-        const url = 'http://ec2-3-124-8-117.eu-central-1.compute.amazonaws.com/studyit/api/v1/users/student?clientId=studyit-35c2-11e9-b210-d663bd873d93';
+        const url = '/users/student?clientId=studyit-35c2-11e9-b210-d663bd873d93';
         const requestBody = {
             email: email,
             firstName: firstName,

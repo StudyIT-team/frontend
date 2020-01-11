@@ -72,8 +72,9 @@ class LoginScreen extends React.Component {
         console.log(response);
         if(response.status == 200) {
             this.setState({ isLoggedIn: true });
-            localStorage.setItem('token', response.data.access_token);
+            localStorage.setItem('token', response["data"]["access_token"]);
             localStorage.setItem('email', this.state.email);
+            localStorage.setItem('userType', response['data']['user_role'])
             if(response.data.user_role === "PROFESSOR") {
                 this.props.history.push('/teacher');
             } else {
