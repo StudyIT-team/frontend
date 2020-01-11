@@ -18,9 +18,7 @@ export default class AppRouter extends Component{
             <div>
             <NavBar/>
             <Router>
-                <Switch>
-                    {routeList}
-                </Switch>
+                {routeList}
             </Router>
             </div>
         );

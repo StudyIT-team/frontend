@@ -15,6 +15,7 @@ import StudentLanding from '../screens/student-landing-page';
 import TeacherTimetable from '../screens/teacher-timetable-screen';
 import AttendanceSheet from '../screens/attendance-screen';
 import StudentSubjectsScreen from '../screens/student-subjects-screen';
+import StudentSubjectDetailScreen from '../screens/subject-student-screen';
 
 export const routeList = [
     <Route exact path="/" component={App}/>,
@@ -30,6 +31,7 @@ export const routeList = [
     <Route exact path="/teacher-timetable" component={TeacherTimetable}/>,
     <Route exact path="/teacher-attendance" component={AttendanceSheet}/>,
     <Route exact path="/subjects" component={StudentSubjectsScreen}/>,
-    <PrivateRoute nextUrl="/timetable" component={TimetableScreen}/>,
-    <PrivateRoute nextUrl="/success" component={App}/>
+    <PrivateRoute nextUrl="/timetable" forStudent={true} component={TimetableScreen}/>,
+    <PrivateRoute nextUrl="/success" forStudent={true} component={App}/>,
+    <PrivateRoute nextUrl="/student-subject-details" forStudent={true} component={StudentSubjectDetailScreen}/>
 ];

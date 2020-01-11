@@ -22,10 +22,10 @@ export default class PrivateRoute extends Component{
         if(this.props.forStudent === undefined){
             return <Route exact path={nextUrl}  component={comp}/>
         }
-        if(this.props.forStudent && user.role == "student"){
+        if(this.props.forStudent && user.role == "STUDENT"){
             return <Route exact path={nextUrl} component={comp}/>;
         }
-        if(!this.props.forStudent && user.role == "prof"){
+        if(!this.props.forStudent && user.role == "PROFESSOR"){
             return <Route exact path={nextUrl} component={comp}/>;
         }
         return <Redirect to="/invalid"/>;
