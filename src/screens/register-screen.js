@@ -18,6 +18,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
+import subjectService from '../services/subjects-service';
 
 const useStyles = theme => ({
   "@global": {
@@ -234,8 +235,10 @@ class RegisterScreen extends React.Component {
     }
   }
 
-  redirectToLogin(event) {
+  async redirectToLogin(event) {
     const login_path = "/login";
+    //const sbjs = await subjectService.enrollAfterRegister();
+    //console.log("Subjects registered", sbjs);
     this.props.history.push(login_path);
   }
 
