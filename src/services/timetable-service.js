@@ -23,8 +23,9 @@ class TimetableService{
         const groupInfo = meInfo.group.split('/')
         let group = groupInfo[0] + "/" + groupInfo[1];
     
-        let getUrl = `/timetable`;
-        getUrl += `?group=${group}`;
+        // let getUrl = `/timetable`;
+        // getUrl += `?group=${group}`;
+        let getUrl = '/timetable/student/me'
     
         const timetable = await this.axios.get(getUrl);
         console.log("Timetable", timetable)
