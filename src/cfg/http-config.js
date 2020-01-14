@@ -12,7 +12,7 @@ const createAxios = () => {
         'Access-Control-Allow-Origin' : '*',
         'Access-Control-Allow-Credentials': true
         },
-        baseURL: 'http://3.124.8.117/studyit/api/v1/',
+        baseURL: 'http://ec2-3-124-8-117.eu-central-1.compute.amazonaws.com/studyit/api/v1/',
     };
 
     const axiosInstance = axios.create(defaultOptions);

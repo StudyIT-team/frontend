@@ -19,13 +19,12 @@ class TimetableService{
         
 
         
-        // let meInfo = await this.fetchMeInfo();
-        // const groupInfo = meInfo.group.split('/')
-        // let group = groupInfo[0];
-        // let semigroup = groupInfo[1];
+        let meInfo = await this.fetchMeInfo();
+        const groupInfo = meInfo.group.split('/')
+        let group = groupInfo[0] + "/" + groupInfo[1];
     
-        let getUrl = `/timetable/student/me`;
-        // getUrl += `?group=${group}&&semigroup=${semigroup}`;
+        let getUrl = `/timetable`;
+        getUrl += `?group=${group}`;
     
         const timetable = await this.axios.get(getUrl);
         console.log("Timetable", timetable)
@@ -36,7 +35,7 @@ class TimetableService{
 
     async fetchMeInfo(){
         const resp = await this.axios.get(`/users/student/me`)
-        console.log("MeInfo", resp)
+        console.log("MeInfo", resp['data'])
         return resp.data
     }
 
@@ -44,7 +43,7 @@ class TimetableService{
         const eventsMapper = {};
         response['data'].forEach(event => {
             event.type = event.classType;
-            event.name = event.type + " " +  event.subject.name;
+            event.name = event.type + " " +  event.subjectDto.name;
             event.startTime = moment("2018-02-23T" + event.startTime);
             event.endTime = moment("2018-02-23T" + event.endTime);
             const day = event.day.toLowerCase();
