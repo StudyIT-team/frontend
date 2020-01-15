@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container } from '@material-ui/core';
 import AssignmentContainer from '../components/student-assignment-cont';
+import subjectService from '../services/subjects-service'; 
 
 //const props = [ "description", "deadline", "forWhat", "no"]
 
@@ -28,22 +29,35 @@ export default class StudentSubjectScreen extends React.Component{
 
     constructor(props){
         super(props)
+        const subjectId = this.props.location.state.subjectId;
         this.state = {
-
+            subjectId : subjectId,
             teachers : [],
             news : [],
             subject: undefined,
             myAssignments: [],
             labAttendances : [],
             seminaryAttendances: [],
-
+            __rawData : {}
         }
     }
 
 
-    componentDidMount(){
+    async componentDidMount(){
+        const details = await subjectService.getSubjectDetails(this.state.subjectId);
         this.setState({
-            ...dummy
+            subject: details.subject,
+            teachers: details.professors.map(prof => prof.professor),
+            __rawData: details
+        })
+        await this.fetchNews();
+        
+    }
+
+    async fetchNews(){
+        const news = subjectService.getNews(this.state.subjectId);
+        this.setState({
+            news: news
         })
     }
 
@@ -57,7 +71,7 @@ export default class StudentSubjectScreen extends React.Component{
             return <h1>Subject is loading</h1>
         }
         return (
-            <div>
+            <Container>
             <h1>{this.state.subject.name}</h1>
             <br/>
             <h3>Taught by:</h3>
@@ -70,7 +84,7 @@ export default class StudentSubjectScreen extends React.Component{
             <h3>Assignments</h3>
             <h5>My assignments</h5>
             <AssignmentContainer assignments={this.state.myAssignments}/>
-            </div>
+            </Container>
 
         );
     }

@@ -3,9 +3,7 @@ import { getAxios } from "../cfg/http-config";
 import moment from "moment";
 
 
-const defaultGroup = 931;
-const defaultSemi = 1;
-
+const days = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY']
 const shameUrl = 'http://3.124.8.117/studyit/api/v1'
 
 
@@ -41,13 +39,13 @@ class TimetableService{
     }
 
     mapTimetableData(response){
-        const eventsMapper = {};
+        const eventsMapper = {'MONDAY' : [], 'TUESDAY': [], 'WEDNESDAY': [], 'THURSDAY': [], 'FRIDAY': [], 'SATURDAY': []};
         response['data'].forEach(event => {
             event.type = event.classType;
             event.name = event.type + " " +  event.subjectDto.name;
             event.startTime = moment("2018-02-23T" + event.startTime);
             event.endTime = moment("2018-02-23T" + event.endTime);
-            const day = event.day.toLowerCase();
+            const day = event.day;
             if (eventsMapper[day]){
                 eventsMapper[day].push(event);
             }
@@ -55,6 +53,7 @@ class TimetableService{
                 eventsMapper[day] = [event];
             }
         });
+        
         return eventsMapper;
     }
 

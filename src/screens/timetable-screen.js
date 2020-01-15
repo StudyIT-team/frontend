@@ -56,10 +56,14 @@ export default class TimetableScreen extends React.Component {
     this.setState({ events: events });
   }
 
+  redirectToDetails(subjectId){
+    this.props.history.push('/student-subject-details', {subjectId: subjectId})
+  }
+
   render() {
     return (
       <Container>
-        <TimetableComponent events={this.state.events} />
+        <TimetableComponent events={this.state.events} redirect={this.redirectToDetails.bind(this)}/>
       </Container>
     );
   }

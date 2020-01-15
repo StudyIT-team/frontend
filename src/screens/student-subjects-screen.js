@@ -53,10 +53,8 @@ class StudentSubjectsScreen extends React.Component {
     }
 
     getOptionalId(optional){
-      console.log("Optional name", optional)
       for(let i = 0; i < this.state._filledOptionalSubjects.length; i++){
         const opt = this.state._filledOptionalSubjects[i];
-        console.log("Searched optional", opt)
         if(optional.category === opt.name){
           return opt.id
         }
@@ -82,7 +80,6 @@ class StudentSubjectsScreen extends React.Component {
 
     
     async handleRemove(id) {
-      console.log("optional subject ids", this.state.optionalSubjects)
       const values = this.state.optionalSubjects.filter(sbj => sbj.id !== id);
       this.setState({
         optionalSubjects: values
@@ -103,16 +100,18 @@ class StudentSubjectsScreen extends React.Component {
     }
 
     async handleNewOptional(subject) {
-      this.setState({
-        optionalSubjects: this.state.optionalSubjects.concat([subject])
-      });
+
       const optionalId = this.getOptionalId(subject);
       const enrolls = await this.subjectService.enrollAtSubject(optionalId);
-      console.log("enrolls new list", enrolls)
       const newEnrolls = JSON.parse(JSON.stringify(this.state.enrollments))
+      console.log('enrolls', enrolls[0].subjectDto)
+      const newSubject = enrolls[0].subjectDto;
+      newSubject['category'] = newSubject['name'];
+      newSubject['content'] = 'student enrolled';
       newEnrolls.push(enrolls[0])
       this.setState({
-        enrollments: newEnrolls
+        enrollments: newEnrolls,
+        optionalSubjects: this.state.optionalSubjects.concat([newSubject])
       })
       //this.completeSettingSubjects(enrolls);
     }
@@ -129,11 +128,10 @@ class StudentSubjectsScreen extends React.Component {
 
     mapSubjectsToRender(subjects){
       return subjects.map((subject) =>
-      <div  value={subject}>
-        <Subject key={subject.id} value={subject} handleRemove={this.handleRemove.bind(this)}>
+        <Subject key={subject.category} value={subject} handleRemove={this.handleRemove.bind(this)} click={this.goToDetails.bind(this, subject.id)}>
         </Subject>
     
-      </div>
+     
       );
     }
 
@@ -144,8 +142,12 @@ class StudentSubjectsScreen extends React.Component {
         } 
         return false;
       })
-      console.log(this.state.optionalSubjects, filteredOptionals)
       return filteredOptionals;
+    }
+
+    goToDetails(subjectId){
+      console.log("Clicked")
+      this.props.history.push('/student-subject-details', {subjectId : subjectId})
     }
 
     render() {
@@ -185,15 +187,21 @@ class Subject extends React.Component {
 
 
   handleRemove(event){
-      this.props.handleRemove(this.props.value.id)
-      event.preventDefault();
+  
+    event.preventDefault();
+    event.stopPropagation();
+    event.nativeEvent.stopImmediatePropagation();
+    this.props.handleRemove(this.props.value.id)
   }
+
 
     mapX(){
       if (optionals.indexOf(this.props.value.category) !== -1){
-      return (<button className="button" type="button" onClick={this.handleRemove.bind(this)}>
+      return (<div className="button" style={{display: 'flex', alignItems: 'center'}}
+      onClick={this.handleRemove.bind(this)}
+      >
       X
-     </button>);
+     </div>);
       }
       else
       return null;
@@ -203,7 +211,7 @@ class Subject extends React.Component {
 
     render(){
     return (
-      <div className="post">
+      <div onClick={this.props.click} className="post">
         {this.mapX()}
         <span className="label">{this.props.value.category}</span>
         <span className="content">{this.props.value.content}</span>

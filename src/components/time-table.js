@@ -9,6 +9,7 @@ import { EventComponent } from "./event";
 export default class TimetableComponent extends React.Component {
   constructor(props, context) {
     super(props, context);
+    
     this.state = {
       events: this.props.events,
       hoursInterval: [8, 20],
@@ -23,11 +24,13 @@ export default class TimetableComponent extends React.Component {
       },
       renderEvent(event, defaultAttributes, styles) {
         return (
+          <div onClick={() => props.redirect(event.subjectDto.id)}>
           <EventComponent
             event={event}
             attributes={defaultAttributes}
             styles={styles}
           />
+          </div>
         );
       }
     };

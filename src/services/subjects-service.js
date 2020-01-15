@@ -42,5 +42,14 @@ class SubjectsService{
         return await this.axios.delete('/students/enrollments/' + optionalSubscriptionId);
     }
 
+    async getSubjectDetails(subjectId){
+        const details = await this.axios.get('/timetable/subject/' + subjectId + "/info");
+        return details['data'];
+    }
+    async getNews(subjectId){
+        const news = await this.axios.get(`/news?subjectId=${subjectId}`)
+        return news['data'];
+    }
+
 }
 export default new SubjectsService;

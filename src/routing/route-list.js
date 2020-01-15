@@ -15,7 +15,7 @@ import StudentLanding from '../screens/student-landing-page';
 import TeacherTimetable from '../screens/teacher-timetable-screen';
 import AttendanceSheet from '../screens/attendance-screen';
 import StudentSubjectsScreen from '../screens/student-subjects-screen';
-import StudentSubjectDetailScreen from '../screens/subject-student-screen';
+import StudentSubjectDetailScreen from '../screens/subject-details-screen';
 
 export const routeList = [
     <Route exact path="/" component={App}/>,
