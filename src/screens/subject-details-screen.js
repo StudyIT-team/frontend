@@ -2,7 +2,10 @@ import React from 'react';
 import { Container } from '@material-ui/core';
 import AssignmentContainer from '../components/student-assignment-cont';
 import subjectService from '../services/subjects-service'; 
-
+import Paper from '@material-ui/core/Paper';
+import NewsFeed from '../components/news-feed';
+import AssignmentList from '../components/assignment-list';
+import assignmentService from '../services/assignment-service'
 //const props = [ "description", "deadline", "forWhat", "no"]
 
 const dummy = {
@@ -38,6 +41,7 @@ export default class StudentSubjectScreen extends React.Component{
             myAssignments: [],
             labAttendances : [],
             seminaryAttendances: [],
+            news: [],
             __rawData : {}
         }
     }
@@ -51,13 +55,20 @@ export default class StudentSubjectScreen extends React.Component{
             __rawData: details
         })
         await this.fetchNews();
+        await this.fetchAssignments();
         
     }
 
     async fetchNews(){
-        const news = subjectService.getNews(this.state.subjectId);
+        const news = await subjectService.getNews(this.state.subjectId);
         this.setState({
             news: news
+        })
+    }
+    async fetchAssignments(){
+        const assigns = await assignmentService.getAssignments(this.state.subjectId)
+        this.setState({
+            myAssignments : assigns
         })
     }
 
@@ -66,24 +77,34 @@ export default class StudentSubjectScreen extends React.Component{
     }
 
     render(){
-        console.log('RENDERING stud')
+
+        console.log('news', this.state.news)
+
         if (this.state.subject == undefined){
             return <h1>Subject is loading</h1>
         }
         return (
             <Container>
-            <h1>{this.state.subject.name}</h1>
+            <div className="label">{this.state.subject.name}</div>
             <br/>
-            <h3>Taught by:</h3>
-            <ul>
+            
+            <Paper elevation={3} style={{display: 'flex', flexDirection:'column', justifyContent:'center',  paddingBottom: '30px', paddingLeft: '10px'}}>
+                <div className="label">Professor list: </div>
                 {this.mapProffesors(this.state.teachers)}
-            </ul>
+            </Paper>
             <br/><br/>
-            <h3>Course news</h3>
+            <Paper elevation={3} style={{paddingBottom: '30px'}}>
+            <div className="label">Course news</div>
+            <NewsFeed posts={this.state.news} />
             {/* ce ne da andra     */}
-            <h3>Assignments</h3>
-            <h5>My assignments</h5>
-            <AssignmentContainer assignments={this.state.myAssignments}/>
+            {/* <h3>Assignments</h3>
+            <h5>My assignments</h5> */}
+            </Paper>
+            <br/> <br/>
+            <Paper elevation={3} style={{paddingBottom: '30px'}}>
+            <div className="label">Course assignments</div>
+            <AssignmentList assignments={this.state.myAssignments} subject={this.state.subject}/>
+            </Paper>
             </Container>
 
         );

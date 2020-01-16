@@ -13,19 +13,22 @@ import SnackbarContent from '@material-ui/core/SnackbarContent';
 import WarningIcon from '@material-ui/icons/Warning';
 import { makeStyles } from '@material-ui/core/styles';
 
+
 export default class NewsPost extends React.Component {
     render() {
       return (
+
         <div className="post">
             <div className="postTitle">
-            <span className="label">{this.props.value.title}</span>
+            <span className="label" style={{display: 'flex'}}>{this.props.value.title}</span>
             </div>
             <div className="about">
-            <span className="subject">{this.props.value.category}</span>
+            <span className="subject">{this.props.value.subjectDto.name}</span>
             </div>
             <div className="content">
             <span>{this.props.value.content}</span>
             </div>
+            <div className="date">{this.props.value.creationDate.split('T')[0]}</div>
       </div>
       )
     }

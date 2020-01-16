@@ -1,4 +1,5 @@
 import { getAxios } from "../cfg/http-config";
+import subjectService from './subjects-service';
 
 class NewsService{
     constructor() {
@@ -21,7 +22,7 @@ class NewsService{
         const result=await this.axios.get('/news',{
             
         })
-        return result;
+        return result.data;
         
     }
     async getSubjects(){
@@ -32,6 +33,16 @@ class NewsService{
         }
 
     }
+    async getTeacherNews(subjectId){
+        const news = await this.axios.get('/news?subjectId=' + subjectId);
+        return news.data;
+
+    }
+
+    async addNews(newsObject){
+        await this.axios.post('/news', newsObject)
+    }
+
 }
 
 const newsService = new NewsService()

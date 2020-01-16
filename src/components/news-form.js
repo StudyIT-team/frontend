@@ -9,11 +9,9 @@ export default class NewsForm extends React.Component {
     handleSubmit(event) {
       this.props.onSubmit({
         title: this.title.value,
-        category: this.category.value,
         content: this.content.value
       });
       this.title.value='';
-      this.category.value = categories[0];
       this.content.value = '';
       event.preventDefault();
     }
@@ -21,17 +19,6 @@ export default class NewsForm extends React.Component {
       return (
         <div className="post-form">
           <form onSubmit={this.handleSubmit}>
-            <label>
-              Category:
-            </label>
-            <label>
-              <select ref={(input) => this.category = input}>
-                {categories.map((category, index) =>
-                  <option key={category} value={category}>{category}</option>
-                )}
-              </select>
-            </label>
-            <br></br>
             <label>
               Title:
               <input type="text" ref={(input) => this.title = input} />

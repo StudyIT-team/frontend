@@ -1,5 +1,5 @@
 import React from 'react';
-import TimetableComponent from '../components/time-table';
+import Timetable from '../components/nex-timetable';
 import moment from "moment";
 import { Container } from '@material-ui/core';
 import { timetableService } from '../services/timetable-service';
@@ -47,7 +47,7 @@ export default class TimetableScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      events: {}
+      events: []
     };
   }
 
@@ -63,7 +63,7 @@ export default class TimetableScreen extends React.Component {
   render() {
     return (
       <Container>
-        <TimetableComponent events={this.state.events} redirect={this.redirectToDetails.bind(this)}/>
+        <Timetable events={this.state.events} redirect={this.redirectToDetails.bind(this)}/>
       </Container>
     );
   }

@@ -16,6 +16,7 @@ import loginService from '../services/login-service';
 import { ErrorSnackbar } from '../components/error-snackbar';
 import { Paper, Card } from '@material-ui/core';
 import AssignmentList from '../components/assignment-list';
+import AssignmentAddComponent from '../components/assignment-add-component';
 
 class TeacherAssignmentsScreen extends React.Component {
    
@@ -24,7 +25,7 @@ class TeacherAssignmentsScreen extends React.Component {
             // <Container component="main" maxWidth="sm" >
             <Container className="scrollable-auto">
                  <CssBaseline />
-                    <AssignmentList/>
+                    <AssignmentAddComponent/>
                  
             </Container>
             

@@ -3,32 +3,42 @@ import NewsForm from '../components/news-form';
 import NewsPost from '../components/news-post';
 import SearchBar from '../components/search-bar';
 import TeacherNewsFeed from '../components/teacher-news-feed';
+import Paper from '@material-ui/core/Paper';
+
 
 export default class NewsFeed extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-          posts: [
-            {title: 'Assignment no 5', category:'Parallel and Distributed Programming',content:'The deadline for assignment 5 is postponed.'},
-          ],
+          posts: 
+             this.props.posts
+          ,
           filteredPosts: []
         }
     
         this.handleNewPost = this.handleNewPost.bind(this);
         this.handleFilter = this.handleFilter.bind(this);
       }
+
     
       handleNewPost(post) {
         this.setState({
           posts: this.state.posts.concat([post])
         });
       }
+      componentWillReceiveProps(newProps){
+        console.log('updated')
+        this.state.posts = newProps.posts;
+        this.state.filteredPosts = newProps.posts;
+      }
     
       handleFilter(filter) {
+        console.log('filter is', filter)
+        filter = filter.trim()
         this.setState({
           filteredPosts: this.state.posts.filter((post) =>
-            post.category.toUpperCase() === filter.toUpperCase() ||
-              post.content.includes(filter)
+            post.subjectDto.name.toUpperCase().includes( filter.toUpperCase()) ||
+              post.content.includes(filter) || filter === ""
           )
         });
       }
@@ -41,10 +51,12 @@ export default class NewsFeed extends React.Component{
           <NewsPost key={index} value={post} />
         );
         return (
-          <div className="feed">
+          // <div elevation={3} style={{display: 'flex', justifyContent:'center', flexDirection:'column', alignItems:'center', marginTop: '100px'}}>
+            <div className="feed">
             <SearchBar onFilter={this.handleFilter}/>
-            {filteredPosts.length > 0 ? filteredPosts : posts}
-          </div>
+            {/* {filteredPosts.length > 0 ? filteredPosts : posts} */}
+            {filteredPosts}
+            </div>
         )
       }
 }

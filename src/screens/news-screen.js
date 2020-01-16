@@ -22,12 +22,28 @@ import NewsFeed from '../components/news-feed';
 
 class NewsScreen extends React.Component {
    
+
+    constructor(props){
+        super(props)
+        this.state = {
+            posts : []
+        }
+    }
+
+    async componentDidMount(){
+        const news = await newsService.getNews();
+        this.setState({
+          posts: news
+        })
+        
+    }
+
     render() {
         return(
             // <Container component="main" maxWidth="sm" >
             <Container className="scrollable-auto">
                  <CssBaseline />
-                    <NewsFeed/>
+                    <NewsFeed posts={this.state.posts}/>
                  {/* <Searchbar/>
                  <NewsPost/>
                  <br></br>

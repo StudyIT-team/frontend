@@ -26,19 +26,7 @@ export default class AddAssignment extends React.Component {
       return (
         <div className="post-form">
           <form onSubmit={this.handleSubmit}>
-          {/* <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  width="50%"
-                  id="title"
-                  label="Title"
-                  name="title"
-                  autoComplete="title"
-                  autoFocus
-                  onChange={this.title=this}
-                  
-                /> */}
+
             <label>
               Title:
               <input type="text" class="form-control" ref={(input) => this.title = input} />

@@ -1,5 +1,7 @@
 import React , {Component} from 'react';
 
+import TextField from '@material-ui/core/TextField';
+
 export default class SearchBar extends React.Component{
     constructor(props) {
         super(props);
@@ -26,11 +28,20 @@ export default class SearchBar extends React.Component{
         return (
         <div classname="search-bar">
             <label>
-            <input type="search" value={this.state.value}
+            {/* <input type="search" value={this.state.value}
                                 onChange={this.handleChange}
                                 onKeyUp={this.handleKeyUp}
-                                placeholder="Filter by category or content..." />
+                                placeholder="Filter by category or content..." /> */}
             </label>
+            <TextField
+            id="standard-textarea"
+            label="Filter by category"
+            placeholder="Filter by category"
+            onChange={this.handleChange}
+            onKeyUp={this.handleKeyUp}
+            multiline
+            variant="filled"
+        />
         </div>
         )
     }

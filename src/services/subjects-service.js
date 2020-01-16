@@ -51,5 +51,10 @@ class SubjectsService{
         return news['data'];
     }
 
+    async getTaughtSubjects(professorId){
+        const subjects = await this.axios.get(`/professors/${professorId}/subjects?clientId=studyit-35c2-11e9-b210-d663bd873d93`)
+        return subjects['data']
+    }
+
 }
 export default new SubjectsService;
