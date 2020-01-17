@@ -110,6 +110,7 @@ class RegisterScreen extends React.Component {
   createDepartmentsSelectItems() {
     let items_deps = [];
     let items = [];
+    console.log(this.state.departments);
     for (let i = 0; i < this.state.departments.length; i++) {
       let item = this.state.departments[i];
       let depName = item.name;

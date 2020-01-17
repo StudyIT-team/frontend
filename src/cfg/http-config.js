@@ -15,6 +15,7 @@ const createAxios = () => {
         baseURL: 'http://ec2-3-124-8-117.eu-central-1.compute.amazonaws.com/studyit/api/v1/',
     };
 
+    
     const axiosInstance = axios.create(defaultOptions);
 
     // const axiosInstance = axios.create();

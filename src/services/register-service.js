@@ -1,4 +1,5 @@
 import { getAxios } from "../cfg/http-config";
+import axios from 'axios'
 
 class RegisterService{
     constructor() {
@@ -6,8 +7,13 @@ class RegisterService{
     }
 
     async getDepartments() {
-        const url = '/departments?clientId=studyit-35c2-11e9-b210-d663bd873d93';
-        const result = await this.axios(url)
+        const url = 'http://ec2-3-124-8-117.eu-central-1.compute.amazonaws.com/studyit/api/v1/departments?clientId=studyit-35c2-11e9-b210-d663bd873d93';
+        const config = {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        };
+        const result = await axios.get(url)
             .then(response => {
                 const res = {
                     data: response.data,
@@ -25,8 +31,13 @@ class RegisterService{
     }
 
     async getGroups(department) {
-        const url = 'departments/' + department + '/groups?clientId=studyit-35c2-11e9-b210-d663bd873d93';
-        const result = await this.axios.get(url)
+        const url = 'http://ec2-3-124-8-117.eu-central-1.compute.amazonaws.com/studyit/api/v1/departments/' + department + '/groups?clientId=studyit-35c2-11e9-b210-d663bd873d93';
+        const config = {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        };
+        const result = await axios.get(url)
             .then(response => {
                 const res = {
                     data: response.data,
@@ -44,7 +55,7 @@ class RegisterService{
     }
 
     async registerStudent(firstName, lastName, email, password, group) {
-        const url = '/users/student?clientId=studyit-35c2-11e9-b210-d663bd873d93';
+        const url = 'http://ec2-3-124-8-117.eu-central-1.compute.amazonaws.com/studyit/api/v1/users/student?clientId=studyit-35c2-11e9-b210-d663bd873d93';
         const requestBody = {
             email: email,
             firstName: firstName,
@@ -52,7 +63,12 @@ class RegisterService{
             lastName: lastName,
             password: password,
         };
-        const result = await this.axios.post(url, requestBody)
+        const config = {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        };
+        const result = await axios.post(url)
         .then(response => {
             const res = {
                 data: response.data,
