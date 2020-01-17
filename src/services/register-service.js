@@ -63,12 +63,7 @@ class RegisterService{
             lastName: lastName,
             password: password,
         };
-        const config = {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        };
-        const result = await axios.post(url)
+        const result = await axios.post(url, requestBody)
         .then(response => {
             const res = {
                 data: response.data,
