@@ -19,9 +19,7 @@ class AssignmentComponent extends React.Component{
               <div className="postTitle">
               <span className="label" style={{display: 'flex'}}>{subject.name}</span>
               </div>
-              {/* <div className="about">
-              <span className="subject">{prof.firstName} {prof.lastName}</span>
-              </div> */}
+              {this.optionalProf()}
               <div className="content">
               <span>{assgn.content}</span>
               </div>
@@ -29,6 +27,22 @@ class AssignmentComponent extends React.Component{
         </div>
         )
       }
+
+      optionalProf(){
+          if (this.props.professor == undefined){
+              return null;
+          }
+          console.log("prof", this.props.professor)
+          return ( <div className="about">
+        <span className="subject">{this.props.professor.firstName} {this.props.professor.lastName}</span>
+          </div> );
+      }
+
+      mapDegree(degree){
+          const big =  degree.toLowerCase()
+          
+      }
+
     }
 
 
@@ -52,6 +66,7 @@ export default class AssignmentList extends React.Component{
         console.log('updated', newProps)
         this.state.assignments = newProps.assignments;
         this.state.filteredAssignments = newProps.assignments;
+        
       }
     
       handleFilter(filter) {
@@ -69,7 +84,7 @@ export default class AssignmentList extends React.Component{
           console.log("state", this.state)
 
         const filteredAssigns = this.state.filteredAssignments.map((assgn, index) =>
-            <AssignmentComponent key={index} assignment={assgn} subject={this.props.subject} />
+            <AssignmentComponent key={index} assignment={assgn} subject={this.props.subject} professor={this.props.professor}/>
         );
         return (
           // <div elevation={3} style={{display: 'flex', justifyContent:'center', flexDirection:'column', alignItems:'center', marginTop: '100px'}}>

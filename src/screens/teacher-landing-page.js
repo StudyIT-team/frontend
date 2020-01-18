@@ -122,7 +122,7 @@ class TeacherLanding extends React.Component {
                     </Grid>
                 </Grid>
 
-                <Grid className={classes.paper} container spacing={30}>
+                {/* <Grid className={classes.paper} container spacing={30}>
                     <Grid className={classes.gridElem} item md={2}>
                         <div>
                             <Card className={classes.card}>
@@ -161,7 +161,7 @@ class TeacherLanding extends React.Component {
                                 </Card>
                             </div>
                     </Grid>
-                </Grid>
+                </Grid> */}
 
             </div>
         );

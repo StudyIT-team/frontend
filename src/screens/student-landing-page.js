@@ -61,7 +61,7 @@ class StudentLanding extends React.Component {
     return (
       <div>
         <Grid className={classes.paper} container spacing={30}>
-          <Grid className={classes.gridElem} item md={2}>
+          {/* <Grid className={classes.gridElem} item md={2}>
             <div>
               <Card className={classes.card}>
                 <CardContent>
@@ -78,7 +78,7 @@ class StudentLanding extends React.Component {
                 </CardActions>
               </Card>
             </div>
-          </Grid>
+          </Grid> */}
 
           <Grid className={classes.gridElem} item md={2}>
             <div>
@@ -126,7 +126,7 @@ class StudentLanding extends React.Component {
         </Grid>
 
         <Grid className={classes.paper} container spacing={30}>
-          <Grid className={classes.gridElem} item md={2}>
+          {/* <Grid className={classes.gridElem} item md={2}>
             <div>
               <Card className={classes.card}>
                 <CardContent>
@@ -143,7 +143,7 @@ class StudentLanding extends React.Component {
                 </CardActions>
               </Card>
             </div>
-          </Grid>
+          </Grid> */}
 
           <Grid className={classes.gridElem} item md={2}>
             <div>

@@ -149,7 +149,7 @@ export default class AssignmentAddComponent extends React.Component {
       <br/>
       <label className="label">Add a new assignment:</label>
         <AssignmentForm onSubmit={this.handleNewPost} />
-      { this.state.selectedSubject !=  undefined ? <AssignmentList assignments={this.state.assignments} subject={this.state.selectedSubject.value.subject}/> : null}
+      { this.state.selectedSubject !=  undefined ? <AssignmentList  professor={this.state.professor} assignments={this.state.assignments} subject={this.state.selectedSubject.value.subject}/> : null}
       </div>
     )
   }
