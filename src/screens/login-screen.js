@@ -124,7 +124,7 @@ class LoginScreen extends React.Component {
                         fullWidth: true
                       }}
                       inputProps={{
-                        onChange:(event) => this.changeEmail(event),
+                        onChange:this.changeEmail.bind(this),
                         type: "text",
                         variant: "outlined",
                         margin: "normal",
@@ -148,14 +148,9 @@ class LoginScreen extends React.Component {
                       required
                       fullWidth
                       name="password"
-                      onChange={this.changePassword.bind(this)}
                       inputProps={{
-                        onChange:(event) => this.changePassword(event),
+                        onChange:this.changePassword.bind(this),
                         type: "password",
-                        id:"password",
-                        variant:"outlined",
-                        margin:"normal",
-                        name:"password",
                         endAdornment: (
                           <InputAdornment position="end">
                             <Icon className={classes.inputIconsColor}>
