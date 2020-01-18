@@ -438,7 +438,7 @@ class RegisterScreen extends React.Component {
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
                       <Button color="primary" size="lg"
-                          onClick={this.redirectToLogin.bind(this)}>
+                          onClick={this.submitRegister.bind(this)}>
                           Sign In
                       </Button>
                   </CardFooter>
