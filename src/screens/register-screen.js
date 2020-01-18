@@ -361,7 +361,7 @@ class RegisterScreen extends React.Component {
                     />
                     <CustomInput
                       labelText="Password"
-                      id="pass"
+                      id="password"
                       formControlProps={{
                         fullWidth: true,
                         onChange:this.changePassword.bind(this)
@@ -438,7 +438,7 @@ class RegisterScreen extends React.Component {
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
                       <Button color="primary" size="lg"
-                          onClick={() => { window.location.href = "/login";}}>
+                          onClick={this.redirectToLogin.bind(this)}>
                           Sign In
                       </Button>
                   </CardFooter>
