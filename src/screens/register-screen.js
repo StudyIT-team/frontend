@@ -18,7 +18,11 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
+import CustomInput from "../components/components/CustomInput/CustomInput.js";
 import subjectService from '../services/subjects-service';
+import InputAdornment from "@material-ui/core/InputAdornment";
+import People from "@material-ui/icons/People";
+
 
 const useStyles = theme => ({
   "@global": {
@@ -308,18 +312,25 @@ class RegisterScreen extends React.Component {
                   autoFocus
                   onChange={this.changeFirstName.bind(this)}
                 />
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="lastName"
-                  autoFocus
-                  onChange={this.changeLastName.bind(this)}
-                />
+                
+                <CustomInput
+                        labelText="Last Name"
+                        id="lastName"
+                        name="lastName"
+                        formControlProps={{
+                            fullWidth: true
+                          }}
+                          onChange={this.changeLastName.bind(this)}
+
+                          inputProps={{
+                            type: "text",
+                            endAdornment: (
+                              <InputAdornment position="end">
+                                <People className={classes.inputIconsColor} />
+                              </InputAdornment>
+                            )}}
+                          // autoFocus
+                    />
                 <TextField
                   variant="outlined"
                   margin="normal"

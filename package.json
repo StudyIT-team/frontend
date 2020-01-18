@@ -41,7 +41,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build-package-css": "cp src/assets/css/material-dashboard-react.css dist/material-dashboard-react.css"
+
   },
   "eslintConfig": {
     "extends": "react-app"
