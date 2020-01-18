@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from './logo.svg';
-import './App.css';
+import "../src/assets/css/material-dashboard-react.css?v=1.8.0";
 import HomeIcon from '@material-ui/icons/Home';
 import { Redirect } from 'react-router';
 import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';

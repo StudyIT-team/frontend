@@ -41,4 +41,16 @@ class NavBar extends React.Component{
     }
 }
 
+// constructor(props) {
+//   super(props);
+//   this.state = {
+      
+//   }
+// }
+//   render(){
+//     return(
+//       Header(this.props)
+//     );
+//   }
+
 export default withStyles(useStyles)(NavBar);

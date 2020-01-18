@@ -1,4 +1,4 @@
-import { container } from "assets/jss/material-dashboard-react.js";
+import { container } from "../../material-dashboard-react.js";
 
 const signupPageStyle = {
   container: {
